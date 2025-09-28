@@ -38,7 +38,6 @@ export default function SignupPage() {
   };
 
   const onSubmit = (data: SignupFormValues) => {
-    console.log('Form Data:', data);
     mutate(data)
   };
 

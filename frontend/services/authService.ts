@@ -15,7 +15,6 @@ export const signupService = async (data: SignupFormValues): Promise<AuthRes> =>
         "Content-Type": "multipart/form-data", // For file uploads (e.g., profile picture)
       },
     });
-    console.log(res);
     
     return res.data;
   } catch (error) {
@@ -32,7 +31,6 @@ export const signupService = async (data: SignupFormValues): Promise<AuthRes> =>
 export const loginService = async (data: LoginFormValues): Promise<AuthRes> => {
   try {
     const res = await api.post<AuthRes>("/auth/login", data);
-    console.log(res);
     
     return res.data;
   } catch (error) {

@@ -25,7 +25,6 @@ export default function SigninPage() {
 
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log('Sign in:', data)
     mutate(data);
   }
 
