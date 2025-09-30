@@ -8,6 +8,7 @@ const itemSchema = new Schema(
   {
     productId: { type: String, ref: "Product", required: true },
     quantity: { type: Number, required: true, min: 1, default: 1 },
+    price: { type: Number, min: 1, },
   },
   { _id: false }
 );
@@ -22,6 +23,10 @@ const cartSchema: Schema<ICart> = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'User ID is required'],
+    },
+    totalPrice:{
+      type: Number,
+      default:0,
     },
     items: {
       type: [itemSchema],

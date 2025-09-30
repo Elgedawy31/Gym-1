@@ -6,6 +6,9 @@ import { addToCartSchema } from '../types/cartTypes.js';
 import ProductModel from '../Models/productsModel.js';
 import CartModel from '../Models/cartModel.js';
 
+
+const recalculateTotal = (items: { quantity: number; price: number }[]) => items.reduce((sum, i) => sum + i.quantity * i.price, 0);
+
 /**
  * Adds a product to the user's cart or updates the quantity if it already exists.
  * @route POST /api/cart
@@ -32,12 +35,14 @@ export const addToCart = catchAsync(async (req: Request, res: Response, next: Ne
       return next(new AppError(`Insufficient stock. Available: ${product.stock}`, 400));
     }
 
+    const price = product.price;
+
     // Find or create cart for the user
     let cart = await CartModel.findOne({userId: userId.toString()});
     if (!cart) {
       cart = await CartModel.create({
         userId,
-        items: [{ productId, quantity }],
+        items: [{ productId, quantity, price }],
       });
     } else {
       // Check if product already exists in cart
@@ -53,20 +58,23 @@ export const addToCart = catchAsync(async (req: Request, res: Response, next: Ne
           }
         }
       } else {
-        cart.items.push({ productId, quantity });
+        cart.items.push({ productId, quantity, price });
       }
 
       // Validate cart items count
       if (cart.items.length > 50) {
         return next(new AppError('Cart cannot contain more than 50 items', 400));
       }
-
+      cart.totalPrice = recalculateTotal(cart.items);
       await cart.save();
     }
 
+    // Populate product details for response
+    const populatedCart = await CartModel.findById(cart._id).populate('items.productId', 'name price imageUrl');
+
     res.status(200).json({
       status: 'success',
-      data: { cart },
+      data: { cart: populatedCart },
     });
     
   } catch (error) {
@@ -119,12 +127,16 @@ export const updateCartItem = catchAsync(async (req: Request, res: Response, nex
     return next(new AppError('User not authenticated or invalid user ID', 401));
   }
 
-  try {
+  const { productId } = req.params;
+  if (!productId || !/^[0-9a-fA-F]{24}$/.test(productId)) {
+    return next(new AppError('Valid subscription ID is required', 400));
+  }
+
     // Validate request body using Zod
-    const { productId, quantity } = addToCartSchema.parse(req.body);
+    const { quantity } = req.body;
 
     // Check if product exists and is not soft-deleted
-    const product = await ProductModel.findOne({ _id: productId, deletedAt: null });
+    const product = await ProductModel.findOne({ _id: productId });
     if (!product) {
       return next(new AppError('Product not found or has been deleted', 404));
     }
@@ -155,7 +167,8 @@ export const updateCartItem = catchAsync(async (req: Request, res: Response, nex
     // Update quantity
     // cart.items[itemIndex].quantity = quantity;
 
-    // Save updated cart
+    cart.totalPrice = recalculateTotal(cart.items);
+  // Save updated cart
     await cart.save();
 
     // Populate product details for response
@@ -165,13 +178,6 @@ export const updateCartItem = catchAsync(async (req: Request, res: Response, nex
       status: 'success',
       data: { cart: populatedCart },
     });
-  } catch (error) {
-    if (error instanceof ZodError) {
-      const issues = error.issues.map((e) => e.message).join(", ");
-      return next(new AppError(`Validation error: ${issues}`, 400));
-    }
-    return next(new AppError('Failed to update cart item', 500));
-  }
 });
 
 /**

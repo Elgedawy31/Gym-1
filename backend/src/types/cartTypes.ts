@@ -4,11 +4,13 @@ import z from "zod";
 export interface Item {
   productId: string;
   quantity: number;
+  price: number;
 }
 
 export interface ICart extends Document {
   userId: mongoose.Types.ObjectId;
   items: Item[];
+  totalPrice: number;
   createdAt: Date;
   updatedAt: Date;
   totalItems?: number; // Virtual field

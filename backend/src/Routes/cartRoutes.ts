@@ -25,7 +25,7 @@ router.get('/', getCart);
  * @description Update the quantity of a product in the authenticated user's cart.
  * @access Private
  */
-router.patch('/', updateCartItem);
+router.patch('/:productId', updateCartItem);
 
 /**
  * @route DELETE /api/cart
