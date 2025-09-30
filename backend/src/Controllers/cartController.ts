@@ -62,7 +62,7 @@ export const addToCart = catchAsync(async (req: Request, res: Response, next: Ne
       }
 
       // Validate cart items count
-      if (cart.items.length > 50) {
+      if (cart.items.length > 10) {
         return next(new AppError('Cart cannot contain more than 50 items', 400));
       }
       cart.totalPrice = recalculateTotal(cart.items);
@@ -99,19 +99,19 @@ export const getCart = catchAsync(async (req: Request, res: Response, next: Next
     return next(new AppError('User not authenticated or invalid user ID', 401));
   }
 
-      // Find user's cart, excluding soft-deleted ones
-      const cart = await CartModel.findOne({ userId, deletedAt: null }).populate(
-        'items.productId',
-        'name price imageUrl category stock'
-      );
-      if (!cart) {
-        return next(new AppError('Cart not found', 404));
-      }
-  
-      res.status(200).json({
-        status: 'success',
-        data: { cart },
-      });
+  // Find user's cart, excluding soft-deleted ones
+  const cart = await CartModel.findOne({ userId}).populate(
+    'items.productId',
+    'name price imageUrl category stock'
+  );
+  if (!cart) {
+    return next(new AppError('Cart not found', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: { cart },
+  });
 })
 
 /**
@@ -193,10 +193,11 @@ export const removeFromCart = catchAsync(async (req: Request, res: Response, nex
     return next(new AppError('User not authenticated or invalid user ID', 401));
   }
 
-    // Validate request body using Zod
-    const { productId } = req.body;
-
-    if(!productId) return next( new AppError("productId is required", 400))
+    // Validate ProductId
+    const { productId } = req.params;
+    if (!productId || !/^[0-9a-fA-F]{24}$/.test(productId)) {
+      return next(new AppError('Valid subscription ID is required', 400));
+    }
 
     // Find user's cart
     const cart = await CartModel.findOne({ userId: userId.toString() });
@@ -206,7 +207,7 @@ export const removeFromCart = catchAsync(async (req: Request, res: Response, nex
 
     // Find product in cart
     const itemIndex = cart.items.findIndex((item) => item.productId.toString() === productId);
-    if (itemIndex === -1) {
+    if (itemIndex < 0) {
       return next(new AppError('Product not found in cart', 404));
     }
 

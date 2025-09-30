@@ -1,8 +1,9 @@
 import mongoose, { Document } from "mongoose";
 import z from "zod";
+import { IProduct } from "./productsTypes.js";
 
 export interface Item {
-  productId: string;
+  productId: string  | IProduct;
   quantity: number;
   price: number;
 }

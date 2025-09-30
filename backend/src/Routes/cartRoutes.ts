@@ -32,13 +32,13 @@ router.patch('/:productId', updateCartItem);
  * @description Remove a product from the authenticated user's cart.
  * @access Private
  */
-router.delete('/', removeFromCart);
+router.delete('/:productId', removeFromCart);
 
 /**
  * @route DELETE /api/cart/clear
  * @description Clear all items from the authenticated user's cart.
  * @access Private
  */
-router.delete('/clear', clearCart);
+router.delete('/', clearCart);
 
 export default router;
