@@ -1,11 +1,12 @@
 import { Query, Document } from 'mongoose';
 import { ProductQueryType } from '../Schemas/productQuery.js';
+import { UserQueryType } from '../Schemas/userSchema.js';
 
 class ApiFeatures<T extends Document> {
   query: Query<T[], T>;
-  queryParams: ProductQueryType | { [key: string]: any };
+  queryParams: ProductQueryType | { [key: string]: any } | UserQueryType;
 
-  constructor(query: Query<T[], T>, queryParams: ProductQueryType | { [key: string]: any }) {
+  constructor(query: Query<T[], T>, queryParams: ProductQueryType | { [key: string]: any } | UserQueryType) {
     this.query = query;
     this.queryParams = queryParams;
   }

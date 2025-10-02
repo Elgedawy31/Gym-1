@@ -9,6 +9,11 @@ export const productQuerySchema = z.object({
       message: 'Category must be one of: equipment, supplements, clothing, other',
     })
     .optional(),
+    type: z
+    .enum(['woman', 'men', 'other'], {
+      message: 'Category must be one of: woman, men, other',
+    })
+    .optional(),
   page: z
     .string()
     .regex(/^\d+$/, 'Page must be a valid number')

@@ -29,6 +29,11 @@ export const productSchema = z.object({
       message: 'Category must be one of: equipment, supplements, clothing, other',
     })
     .optional(),
+    type: z
+    .enum(['woman', 'men', 'other'], {
+      message: 'Category must be one of: equipment, supplements, clothing, other',
+    })
+    .optional(),
   imageUrl: z
     .string()
     .url('Image URL must be a valid URL')

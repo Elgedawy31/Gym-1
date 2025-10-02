@@ -38,6 +38,14 @@ const productSchema: Schema<IProduct> = new Schema(
         message: '{VALUE} is not a valid category',
       },
     },
+    type: {
+      type: String,
+      trim: true,
+      enum: {
+        values: ['woman', 'men', 'other'],
+        message: '{VALUE} is not a valid type',
+      },
+    },
     imageUrl: {
       type: String,
       trim: true,

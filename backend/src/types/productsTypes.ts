@@ -5,6 +5,7 @@ export interface IProduct extends Document {
   description?: string;
   price: number;
   stock: number
+  type: "woman" | "men" | "product" | 'other';
   category?: string;
   imageUrl?: string;
   createdAt: Date;

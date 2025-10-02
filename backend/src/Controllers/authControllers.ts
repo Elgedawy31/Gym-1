@@ -73,7 +73,7 @@ const createSendToken = (
  * @param res - Express response object
  * @param next - Express next function
  */
-export const signup = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+export const register = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   // Validate user input
   const validationResult = userValidationSchema.safeParse(req.body);
   if (!validationResult.success) {

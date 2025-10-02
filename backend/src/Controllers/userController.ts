@@ -4,6 +4,9 @@ import { AppError } from '../Utils/AppError.js';
 import { catchAsync } from '../Utils/catchAsync.js';
 import { uploadToCloudinary, deleteFromCloudinary } from '../Service/imageService.js';
 import { filterObj } from '../Utils/FilterObj.js';
+import ApiFeatures from '../Utils/ApiFeatures.js';
+import { IUser } from '../types/userTypes.js';
+import { UserQueryType, userQuerySchema } from '../Schemas/userSchema.js';
 
 /**
  * Get current user profile
@@ -72,14 +75,37 @@ export const deleteMe = catchAsync(async (req: Request, res: Response, _next: Ne
 /**
  * Get all users (admin only)
  */
-export const getAllUsers = catchAsync(async (_req: Request, res: Response, _next: NextFunction) => {
-  const users = await UserModel.find();
+export const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  // const users = await UserModel.find();
 
-  res.status(200).json({
-    status: 'success',
-    results: users.length,
-    data: { users }
-  });
+  // res.status(200).json({
+  //   status: 'success',
+  //   results: users.length,
+  //   data: { users }
+  // });
+
+  const queryParams: UserQueryType = userQuerySchema.parse(req.query);
+
+  const features = new ApiFeatures<IUser>(UserModel.find(), queryParams)
+  .filter()
+  .sort()
+  .paginate();
+
+// Execute query
+const { results: products, total, page, limit } = await features.execute();
+
+if (!products || products.length === 0) {
+  return next(new AppError('No products found', 404));
+}
+
+res.status(200).json({
+  status: 'success',
+  results: products.length,
+  total,
+  page,
+  limit,
+  data: { products },
+});
 });
 
 /**
