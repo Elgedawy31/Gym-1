@@ -7,6 +7,7 @@ import { ZodError } from "zod";
 import ApiFeatures from "../Utils/ApiFeatures.js";
 import { ProductQueryType, productQuerySchema } from '../Schemas/productQuery.js';
 import { IProduct } from "../types/productsTypes.js";
+import { uploadToCloudinary } from "../Service/imageService.js";
 
 /**
  * Creates a new product in the database.
@@ -20,9 +21,16 @@ export const createProduct = catchAsync(async (req: Request, res: Response, next
       .omit({ createdAt: true, updatedAt: true }) // Exclude timestamps
       .parse(req.body);
 
-    // Create product in database
-    const product = await ProductModel.create(data);
 
+
+    let imageUrl = '';
+    if(req.file){
+      const cloudinaryResult = await uploadToCloudinary(req.file, 'gym-products');
+      imageUrl = cloudinaryResult.secure_url;
+    }
+        // Create product in database
+        const product = await ProductModel.create({...data, imageUrl});
+    await product.save();
     res.status(201).json({
       status: 'success',
       data: { product },
@@ -46,19 +54,26 @@ export const getAllProducts = catchAsync(async (req: Request, res: Response, nex
   try {
     // Validate query parameters using Zod
     const queryParams: ProductQueryType = productQuerySchema.parse(req.query);
+    // Treat 'general' as no type filter
+    const normalizedParams: ProductQueryType = { ...queryParams } as ProductQueryType;
+    if ((normalizedParams as any).type === 'general') {
+      delete (normalizedParams as any).type;
+    }
+    // If a search term is provided, search across all products (ignore type/category)
+    if ((normalizedParams as any).search) {
+      delete (normalizedParams as any).type;
+      delete (normalizedParams as any).category;
+    }
 
     // Build query with ApiFeatures
-    const features = new ApiFeatures<IProduct>(ProductModel.find(), queryParams)
+    const features = new ApiFeatures<IProduct>(ProductModel.find(), normalizedParams)
       .filter()
+      .search()
       .sort()
       .paginate();
 
     // Execute query
     const { results: products, total, page, limit } = await features.execute();
-
-    if (!products || products.length === 0) {
-      return next(new AppError('No products found', 404));
-    }
 
     res.status(200).json({
       status: 'success',
@@ -107,26 +122,52 @@ export const getProductById = catchAsync(async (req: Request, res: Response, nex
  * @throws {AppError} If productId is invalid, product is not found, or validation fails
  */
 export const updateProduct = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  const { productId } = req.params;
-  if (!productId || !/^[0-9a-fA-F]{24}$/.test(productId)) {
-    return next(new AppError('Valid subscription ID is required', 400));
+  try {
+    const { productId } = req.params;
+
+    if (!productId || !/^[0-9a-fA-F]{24}$/.test(productId)) {
+      return next(new AppError('Valid product ID is required', 400));
+    }
+
+    // Validate partial body with Zod (allowing only known fields)
+    const data = productSchema
+      .omit({ createdAt: true, updatedAt: true })
+      .partial()
+      .parse(req.body);
+
+    // Handle optional image upload
+    let imageUrl: string | undefined;
+    if (req.file) {
+      const cloudinaryResult = await uploadToCloudinary(req.file, 'gym-products');
+      imageUrl = cloudinaryResult.secure_url;
+    }
+
+    const updateData: Partial<IProduct> & { updatedAt: Date } = {
+      ...data,
+      ...(imageUrl ? { imageUrl } : {}),
+      updatedAt: new Date(),
+    };
+
+    const product = await ProductModel.findByIdAndUpdate(productId, updateData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!product) {
+      return next(new AppError('Product not found', 404));
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: { product },
+    });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const issues = error.issues.map((e) => e.message).join(', ');
+      return next(new AppError(`Validation error: ${issues}`, 400));
+    }
+    return next(new AppError('Failed to update product', 500));
   }
-
-  // Find and update product, excluding soft-deleted ones
-  const product = await ProductModel.findByIdAndUpdate(
-    productId,
-    { ...req.body, updatedAt: new Date() },
-    { new: true, runValidators: true }
-  );
-
-  if (!product) {
-    return next(new AppError('Product not found or has been deleted', 404));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: { product },
-  });
 })
 
 /**

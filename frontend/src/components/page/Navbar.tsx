@@ -44,12 +44,12 @@ export default function Navbar() {
         {/* Center Links (desktop only) */}
         <div className="hidden md:flex space-x-6">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/women" className="flex items-center gap-2">
+            <Link href="/products/woman" className="flex items-center gap-2">
               <UserRound className="w-4 h-4" /> Woman
             </Link>
           </Button>
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/men" className="flex items-center gap-2">
+            <Link href="/products/men" className="flex items-center gap-2">
               <UserRound className="w-4 h-4" /> Men
             </Link>
           </Button>
@@ -61,7 +61,7 @@ export default function Navbar() {
             </Button>
           }
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/products" className="flex items-center gap-2">
+            <Link href="/products/general" className="flex items-center gap-2">
               <Package className="w-4 h-4" /> Products
             </Link>
           </Button>

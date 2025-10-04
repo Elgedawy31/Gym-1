@@ -10,9 +10,14 @@ export const productQuerySchema = z.object({
     })
     .optional(),
     type: z
-    .enum(['woman', 'men', 'other'], {
-      message: 'Category must be one of: woman, men, other',
+    .enum(['woman', 'men', 'general'], {
+      message: 'Category must be one of: woman, men, general',
     })
+    .optional(),
+  search: z
+    .string()
+    .trim()
+    .max(100, 'Search must be at most 100 characters')
     .optional(),
   page: z
     .string()
@@ -27,7 +32,7 @@ export const productQuerySchema = z.object({
     .transform(Number)
     .refine((val) => val >= 1 && val <= 100, 'Limit must be between 1 and 100')
     .optional()
-    .default(10),
+    .default(9),
   sort: z
     .string()
     .regex(/^(name|price|createdAt)(,-(name|price|createdAt))*$/, 'Sort must be a valid field (name, price, createdAt) with optional descending (-)')

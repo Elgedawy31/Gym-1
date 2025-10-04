@@ -14,6 +14,8 @@ router.patch('/update-me', upload.single('profilePicture'), userController.updat
 router.delete('/delete-me', userController.deleteMe);
 
 router.get('/me', userController.getMe);
+router.route('/top-trainers')
+  .get(userController.getAllTrainer);
 
 
 // Admin-only routes

@@ -22,10 +22,10 @@ export default function HeroSection() {
 
         <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="relative overflow-hidden rounded-2xl shadow-lg">
-            <Image src="https://images.pexels.com/photos/1229356/pexels-photo-1229356.jpeg" alt="Man working out" width={400} height={500} className="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-300" />
+            <Image src="https://images.pexels.com/photos/1229356/pexels-photo-1229356.jpeg" priority alt="Man working out" width={400} height={500} className="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-300" />
           </div>
           <div className="relative overflow-hidden rounded-2xl shadow-lg">
-            <Image src="https://images.pexels.com/photos/2092479/pexels-photo-2092479.jpeg" alt="Woman working out" width={400} height={500} className="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-300" />
+            <Image src="https://images.pexels.com/photos/7956746/pexels-photo-7956746.jpeg" priority alt="Woman working out" width={400} height={500} className="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-300" />
           </div>
         </motion.div>
       </div>

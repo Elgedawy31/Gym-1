@@ -8,8 +8,13 @@ export const API_CONFIG = {
     },
     USERS: {
       UPDATE: (id?: string) => `/users/${id || 'me'}`,
-      TOP_TRAINERS:"users?role=trainer&limit=3"
+      TOP_TRAINERS:"users/top-trainers?limit=3"
       // Add other user-related endpoints as needed
+    },
+    PRODUCTS: {
+      GET_PRODUCTS: "/products",
+      GET_HOME_PRODUCTS_BY_TYPE :(type: string, limit: number) => `/products?type=${type}&limit=${limit}`,
+      GET_PRODUCTS_BY_TYPE: (type: string, limit: number, page: number = 1, search?: string) => `/products?type=${type}&limit=${limit}&page=${page}${search ? `&search=${encodeURIComponent(search)}` : ''}`,
     },
   },
 };

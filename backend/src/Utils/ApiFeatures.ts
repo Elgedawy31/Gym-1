@@ -28,6 +28,22 @@ class ApiFeatures<T extends Document> {
     return this;
   }
 
+  search() {
+    const searchTerm = (this.queryParams as any).search as string | undefined;
+    if (searchTerm && typeof searchTerm === 'string' && searchTerm.trim().length > 0) {
+      const regex = new RegExp(searchTerm.trim(), 'i');
+      this.query = this.query.find({
+        $or: [
+          { name: { $regex: regex } },
+          { description: { $regex: regex } },
+          { category: { $regex: regex } },
+          { type: { $regex: regex } },
+        ],
+      } as any);
+    }
+    return this;
+  }
+
   sort() {
     if (this.queryParams.sort) {
       const sortBy = this.queryParams.sort.split(',').join(' ');
@@ -40,7 +56,7 @@ class ApiFeatures<T extends Document> {
 
   paginate() {
     const page = Number(this.queryParams.page) || 1;
-    const limit = Number(this.queryParams.limit) || 10;
+    const limit = Number(this.queryParams.limit) || 9;
     const skip = (page - 1) * limit;
 
     this.query = this.query.skip(skip).limit(limit);
@@ -54,7 +70,7 @@ class ApiFeatures<T extends Document> {
       results,
       total,
       page: Number(this.queryParams.page) || 1,
-      limit: Number(this.queryParams.limit) || 10,
+      limit: Number(this.queryParams.limit) || 9,
     };
   }
 }

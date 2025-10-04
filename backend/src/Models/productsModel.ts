@@ -42,7 +42,7 @@ const productSchema: Schema<IProduct> = new Schema(
       type: String,
       trim: true,
       enum: {
-        values: ['woman', 'men', 'other'],
+        values: ['woman', 'men', 'general'],
         message: '{VALUE} is not a valid type',
       },
     },

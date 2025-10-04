@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import { protect, restrictTo } from '../Middlewares/auth.middleware.js';
 import { createProduct, deleteProduct, getAllProducts, getProductById, updateProduct } from '../Controllers/productController.js';
+import upload from '../Middlewares/uploadImage.js';
 
 const router = Router();
-router.use(protect);
 
 /**
  * @route POST /api/products
  * @description Create a new product.
  * @access Private (Admin only)
  */
-router.post('/', restrictTo('admin'), createProduct);
+router.post('/', protect, restrictTo('admin'), upload.single('image'), createProduct);
 
 /**
  * @route GET /api/products
@@ -31,7 +31,7 @@ router.get('/:productId', getProductById);
  * @description Update a product by ID.
  * @access Private (Admin only)
  */
-router.patch('/:productId', protect, restrictTo('admin'), updateProduct);
+router.patch('/:productId', protect, upload.single("image"), restrictTo('admin'), updateProduct);
 
 /**
  * @route DELETE /api/products/:productId

@@ -76,14 +76,6 @@ export const deleteMe = catchAsync(async (req: Request, res: Response, _next: Ne
  * Get all users (admin only)
  */
 export const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  // const users = await UserModel.find();
-
-  // res.status(200).json({
-  //   status: 'success',
-  //   results: users.length,
-  //   data: { users }
-  // });
-
   const queryParams: UserQueryType = userQuerySchema.parse(req.query);
 
   const features = new ApiFeatures<IUser>(UserModel.find(), queryParams)
@@ -92,20 +84,48 @@ export const getAllUsers = catchAsync(async (req: Request, res: Response, next: 
   .paginate();
 
 // Execute query
-const { results: products, total, page, limit } = await features.execute();
+const { results: users, total, page, limit } = await features.execute();
 
-if (!products || products.length === 0) {
-  return next(new AppError('No products found', 404));
+if (!users || users.length === 0) {
+  return next(new AppError('No users found', 404));
 }
 
 res.status(200).json({
   status: 'success',
-  results: products.length,
+  results: users.length,
   total,
   page,
   limit,
-  data: { products },
+  data: { users },
 });
+});
+
+/**
+ * Get all users (admin only)
+ */
+export const getAllTrainer = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  // Validate and coerce query params, then force role=trainer
+  const queryParams: UserQueryType = userQuerySchema.parse({ ...req.query, role: 'trainer' });
+
+  const features = new ApiFeatures<IUser>(UserModel.find(), queryParams)
+    .filter()
+    .sort()
+    .paginate();
+
+  const { results: trainers, total, page, limit } = await features.execute();
+
+  if (!trainers || trainers.length === 0) {
+    return next(new AppError('No trainers found', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    results: trainers.length,
+    total,
+    page,
+    limit,
+    data: { trainers },
+  });
 });
 
 /**

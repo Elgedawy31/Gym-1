@@ -2,13 +2,13 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { IUser } from "@/features/auth/types";
 
-interface HomeStore {
-  topTrainer: IUser[] | null;
+interface UserStore {
+  users: IUser[] | null;
   setUser: (user: IUser[] | null) => void;
 }
 
-export const useHomeStore = create<HomeStore>((set) => ({
-  topTrainer: null,
+export const useUserStore = create<UserStore>((set) => ({
+  users: null,
 
-  setUser: (topTrainer) => set({ topTrainer }),
+  setUser: (users) => set({ users }),
 }));

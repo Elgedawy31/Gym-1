@@ -1,4 +1,4 @@
-import { catchAsync } from './../Utils/catchAsync.js';
+import { catchAsync } from '../Utils/catchAsync.js';
 import { Request, Response, NextFunction } from 'express';
 import OrderModel from '../Models/orderModel.js';
 import CartModel from '../Models/cartModel.js';

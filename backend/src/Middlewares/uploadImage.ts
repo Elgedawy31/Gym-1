@@ -10,6 +10,7 @@ const fileFilter = (
   file: MulterFile, 
   cb: multer.FileFilterCallback
 ) => {
+
   // Accept image files only
   if (file.mimetype.startsWith('image/')) {
     cb(null, true);
@@ -17,7 +18,6 @@ const fileFilter = (
     cb(new Error('Only image files are allowed!'));
   }
 };
-
 // Configure multer upload
 const upload = multer({
   storage,
@@ -25,6 +25,7 @@ const upload = multer({
   limits: {
     fileSize: 5 * 1024 * 1024, // 5MB file size limit
   }
+  
 });
 
 export default upload;

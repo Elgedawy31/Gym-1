@@ -5,8 +5,8 @@ import { motion, useInView } from 'framer-motion';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { Product } from '@/features/Products/types/productTypes';
 
-interface Product { id: number; name: string; price: string; image: string }
 
 interface ProductsSectionProps {
   title: string;
@@ -41,7 +41,15 @@ export default function ProductsSection({ title, products, reverseAnimation }: P
               <Card className="overflow-hidden hover:shadow-xl transition-all p-0 duration-300 group-hover:bg-primary/5">
                 <CardHeader className="p-0">
                   <div className="relative w-full h-64 overflow-hidden">
-                    <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-300" />
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw,
+                            (max-width: 1024px) 50vw,
+                            33vw"
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
                   </div>
                 </CardHeader>
                 <CardContent className="p-4">
