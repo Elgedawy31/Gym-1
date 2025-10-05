@@ -40,7 +40,7 @@ app.use(
 app.use("/api/auth", authRoutes)
 app.use("/api/users", usersRoutes)
 app.use("/api/subscription", subscriptionRoute)
-app.use("/api/workout-plan", workoutPlanRoute)
+app.use("/api/workout-plans", workoutPlanRoute)
 app.use("/api/trainer-subscription", trainerSubscriptionRoute)
 app.use("/api/products", productRoute)
 app.use("/api/cart", cartRoute)

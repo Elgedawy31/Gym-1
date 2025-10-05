@@ -16,7 +16,6 @@ import TrainerSubscriptionModel from '../Models/trainerSubscriptionModel.js';
 export const createWorkoutPlan = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.user?._id;
   if (!userId) return next(new AppError('User not authenticated', 401));
-  if (req.user?.role !== 'trainer') return next(new AppError('Unauthorized: Trainer access required', 403));
 
   try {
     const data = workoutPlanSchema
@@ -26,12 +25,17 @@ export const createWorkoutPlan = catchAsync(async (req: Request, res: Response, 
         trainerId: userId.toString(),
       });
 
-    const workoutPlan = await WorkoutPlanModel.create(data);
+      const createdPlan = await WorkoutPlanModel.create(data);
 
-    res.status(201).json({
-      status: 'success',
-      data: { workoutPlan },
-    });
+      const workoutPlan = await WorkoutPlanModel.findById(createdPlan._id)
+        .populate('trainerId', 'name email')
+        .populate('usersSubscribed', 'name email');
+
+      res.status(201).json({
+        status: 'success',
+        data: { workoutPlan },
+      });
+      
   } catch (error: any) {
     console.error("🔥 Caught error:", error);  
     if (error instanceof ZodError) {
@@ -55,9 +59,6 @@ export const updateWorkoutPlan = catchAsync(async (req: Request, res: Response, 
   const userId = req.user?._id;
   if (!userId || !/^[0-9a-fA-F]{24}$/.test(userId.toString())) {
     return next(new AppError('User not authenticated or invalid user ID', 401));
-  }
-  if (req.user?.role !== 'trainer') {
-    return next(new AppError('Unauthorized: Trainer access required', 403));
   }
 
   const { planId } = req.params;
@@ -182,6 +183,9 @@ export const getTrainerWorkoutPlans = catchAsync(async (req: Request, res: Respo
     return next(new AppError('Valid trainer ID is required', 400));
   }
 
+  console.log(trainerId);
+  
+
   // Build query with ApiFeatures, filtering by trainerId
   const features = new ApiFeatures<IWorkoutPlan>(
     WorkoutPlanModel.find({ trainerId })
@@ -195,6 +199,9 @@ export const getTrainerWorkoutPlans = catchAsync(async (req: Request, res: Respo
 
   // Execute query
   const { results: workoutPlans, total, page, limit } = await features.execute();
+
+  console.log(workoutPlans);
+  
 
   if (!workoutPlans || workoutPlans.length === 0) {
     return next(new AppError('No workout plans found for this trainer', 404));

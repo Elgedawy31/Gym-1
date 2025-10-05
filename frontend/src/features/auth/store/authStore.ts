@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { type IUser } from "../types";
+import { type IUser } from "../types/types";
 import { logOutAction } from "../hooks/actions";
 
 interface AuthStore {

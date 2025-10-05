@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation'
 import { Loader } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { authAction } from '../hooks/actions'
-import { LoginFormValues } from '../types'
+import { LoginFormValues } from '../types/types'
 import { API_CONFIG } from '@/config/api'
 
 
@@ -34,7 +34,7 @@ export default function LoginPage() {
     try {
       const res = await authAction(formData, API_CONFIG.ENDPOINTS.AUTH.LOGIN);
       if (res.data.token) {
-        setUser(res.user);
+        setUser(res.data.user);
         setToken(res.data.token);
         router.push("/");
         toast.success("Login successful!"); // Using a generic success message for now, can be internationalized later

@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import serverAxios from "@/lib/axios/serverAxios";
-import { type IUser } from "../types";
+import { type IUser } from "../types/types";
 import { API_CONFIG } from "@/config/api";
 
 
@@ -26,6 +26,8 @@ export async function authAction(formData: FormData, endPoint: string) {
         sameSite: "lax",
         maxAge: 60 * 60 * 24 * 7,
       });
+
+      (await cookies()).set("role", responseData.data.user.role)
     }
 
     return responseData;
@@ -78,6 +80,7 @@ export async function getProfile(): Promise<{
 
 export async function logOutAction() {
   (await cookies()).delete("token");
+  (await cookies()).delete("role");
   revalidatePath("/", "layout"); 
   return { success: true };
 }

@@ -15,7 +15,7 @@ const clientAxios: AxiosInstance = axios.create({
 clientAxios.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token;
-    config.headers.Authorization = token;
+    config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   (error) => Promise.reject(error)

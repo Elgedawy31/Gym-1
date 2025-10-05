@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -18,12 +18,16 @@ import {
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useAuthStore } from '@/features/auth/store/authStore';
+import { useCartStore } from '@/features/cart/store/cartStore';
 
 export default function Navbar() {
   const { user, token } = useAuthStore();
+  const { cart } = useCartStore();
   
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  const cartItems = cart?.items.length || 0;
 
   return (
     <nav className="sticky top-0 w-full bg-background/95 backdrop-blur-md border-b border-border z-50 transition-colors duration-500">
@@ -65,8 +69,14 @@ export default function Navbar() {
               <Package className="w-4 h-4" /> Products
             </Link>
           </Button>
-        </div>
 
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/subscription" className="flex items-center gap-2">
+              <Package className="w-4 h-4" /> Subscription
+            </Link>
+          </Button>
+        </div>
+        
        {/* Right Icons */}
         <div className="flex items-center space-x-4">
           {/* Theme Toggle */}
@@ -85,9 +95,14 @@ export default function Navbar() {
           </motion.div>
           {/* Cart */}
           <motion.div whileHover={{ scale: 1.1, rotate: 5 }} whileTap={{ scale: 0.95 }}>
-            <Button variant="ghost" size="sm" className="p-2" asChild>
+            <Button variant="ghost" size="sm" className="p-2 relative" asChild>
               <Link href="/cart">
                 <ShoppingCart className="w-5 h-5" />
+                {cartItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartItems > 99 ? '99+' : cartItems}
+                  </span>
+                )}
               </Link>
             </Button>
           </motion.div>
@@ -139,7 +154,7 @@ export default function Navbar() {
               <X className="w-6 h-6" />
             </Button>
           </div>
-          <div className="flex flex-col p-6 space-y-4">
+          <div className="flex flex-col p-6 bg-background/95 space-y-4">
             <Link href="/women" onClick={() => setIsOpen(false)} className="text-lg">Woman</Link>
             <Link href="/men" onClick={() => setIsOpen(false)} className="text-lg">Men</Link>
             <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-lg">Dashboard</Link>

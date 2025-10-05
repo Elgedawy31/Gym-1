@@ -6,6 +6,7 @@ import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/com
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Trainer } from '../../types';
+import Link from 'next/link';
 
 export default function TrainersSection({trainers}: {trainers: Trainer[]}) {
   const ref = useRef<HTMLDivElement>(null);
@@ -48,7 +49,9 @@ export default function TrainersSection({trainers}: {trainers: Trainer[]}) {
                 <CardContent className="pb-6 text-center">
                   <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors">{trainer.name}</CardTitle>
                   <CardDescription className="text-muted-foreground mb-4">{trainer.gender === "male" ? "Strength & Conditioning": "Yoga & Flexibility"}</CardDescription>
-                  <Button className="w-full group-hover:bg-primary/90 transition-colors">View Profile</Button>
+                  <Link href={`/profile/${trainer._id}`}>
+                    <Button className="w-full group-hover:bg-primary/90 transition-colors">View Profile</Button>
+                  </Link>
                 </CardContent>
               </Card>
             </motion.div>

@@ -59,16 +59,10 @@ export const getAllProducts = catchAsync(async (req: Request, res: Response, nex
     if ((normalizedParams as any).type === 'general') {
       delete (normalizedParams as any).type;
     }
-    // If a search term is provided, search across all products (ignore type/category)
-    if ((normalizedParams as any).search) {
-      delete (normalizedParams as any).type;
-      delete (normalizedParams as any).category;
-    }
 
     // Build query with ApiFeatures
     const features = new ApiFeatures<IProduct>(ProductModel.find(), normalizedParams)
       .filter()
-      .search()
       .sort()
       .paginate();
 

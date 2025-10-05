@@ -15,14 +15,14 @@ router.use(protect);
  * @route POST /api/workout plan
  * @description Create a new workout plan for the authenticated user.
 */
-router.post('/', restrictTo("trainer"), createWorkoutPlan);
+router.post('/', restrictTo("trainer", "admin"), createWorkoutPlan);
 
 /**
  * @route PATCH /api/workout-plans/:planId
  * @description Update a workout plan by ID (Trainer only).
  * @access Private (Trainer only)
  */
-router.patch('/:planId', restrictTo('trainer'), updateWorkoutPlan);
+router.patch('/:planId', restrictTo('trainer', "admin"), updateWorkoutPlan);
 
 
 /**

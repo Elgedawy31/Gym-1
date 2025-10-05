@@ -19,10 +19,17 @@ export const createSubscription = catchAsync(async (req: Request, res: Response,
     return next(new AppError('User not authenticated', 401));
   }
 
+
   // Validate request body using Zod
   const { planType } = subscriptionSchema.partial().parse({
     planType: req.body.planType,
   });
+
+  // Check if the user already has an active subscription
+  const existingSubscription = await SubscriptionModel.findOne({ userId, status: 'active' });
+  if (existingSubscription) {
+    return next(new AppError('User already has an active subscription', 400));
+  }
 
   // Create subscription
   const subscription = await SubscriptionModel.create({

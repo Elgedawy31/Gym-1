@@ -1,3 +1,5 @@
+import z from "zod";
+
 export interface IUser {
   _id: string,
   name: string,
@@ -39,3 +41,17 @@ export interface IUpdateMe {
   profilePicture?:File | null,
   gender?: 'male' | 'female' | 'other';
 }
+
+export const profileSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  phoneNumber: z
+    .string()
+    .min(7, 'Phone must be at least 7 digits')
+    .max(20, 'Phone too long')
+    .optional()
+    .or(z.literal('')),
+  gender: z.enum(['male', 'female', 'other']),
+});
+
+export type ProfileFormValues = z.infer<typeof profileSchema>;

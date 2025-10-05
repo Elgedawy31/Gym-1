@@ -5,6 +5,7 @@ import ProductsSection from '../organisms/ProductsSection'
 import toast from 'react-hot-toast';
 import { Product } from '@/features/Products/types/productTypes';
 import { getHomeProductsByType } from '../../hooks/useHome';
+import { motion } from 'framer-motion';
 
 export default function MenSection() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -30,18 +31,28 @@ export default function MenSection() {
 
   if(isPending){
     return(
-      <div className="flex justify-center items-center min-h-[500px] bg-gray-50">
+      <div className="flex justify-center items-center min-h-[500px] bg-card">
         <div className="flex flex-col items-center space-y-4">
           <div className="animate-spin w-16 h-16 border-4 border-t-4 border-primary border-t-primary-foreground rounded-full"></div>
-          <p className="text-lg font-semibold text-gray-600 animate-pulse">Loading Men&apos;s Products...</p>
+          <p className="text-lg font-semibold text-card-foreground animate-pulse">Loading Men&apos;s Products...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="bg-muted/50">
-    <ProductsSection title="Best Products For Men" products={products} />
+    <div className="bg-muted/50 pt-16 pb-8">
+      <div className="container mx-auto max-w-6xl">
+        <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl font-bold text-center mb-12"
+          >
+          Best Products For Men
+        </motion.h2>
+      </div>
+    <ProductsSection products={products} />
   </div>
   )
 }

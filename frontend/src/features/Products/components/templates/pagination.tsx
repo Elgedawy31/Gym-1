@@ -27,7 +27,7 @@ export default function Pagination({ currentPage, totalItems, pageSize, onPageCh
   for (let i = start; i <= end; i++) pages.push(i);
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-6">
+    <div className="flex items-center justify-center gap-2 mb-8">
       <button
         aria-label="Previous page"
         className="px-3 py-1 rounded border disabled:opacity-50"

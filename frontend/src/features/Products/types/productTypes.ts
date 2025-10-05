@@ -23,3 +23,10 @@ export interface ProductsResponse {
     products: Product[];
   };
 }
+
+export interface ProductByIdResponse {
+  status: string;
+  data: {
+    product: Product;
+  };
+}

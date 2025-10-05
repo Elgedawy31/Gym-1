@@ -28,21 +28,6 @@ class ApiFeatures<T extends Document> {
     return this;
   }
 
-  search() {
-    const searchTerm = (this.queryParams as any).search as string | undefined;
-    if (searchTerm && typeof searchTerm === 'string' && searchTerm.trim().length > 0) {
-      const regex = new RegExp(searchTerm.trim(), 'i');
-      this.query = this.query.find({
-        $or: [
-          { name: { $regex: regex } },
-          { description: { $regex: regex } },
-          { category: { $regex: regex } },
-          { type: { $regex: regex } },
-        ],
-      } as any);
-    }
-    return this;
-  }
 
   sort() {
     if (this.queryParams.sort) {

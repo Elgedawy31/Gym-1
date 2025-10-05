@@ -6,6 +6,7 @@ import { getQueryClient } from "@/utils/queryClient";
 import AuthProvider from "../providers/AuthProvider";
 import { type IUser } from "@/features/auth/types";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = getQueryClient();
 
@@ -24,6 +25,7 @@ export function Providers({
           defaultTheme="system"
           enableSystem
         >
+          <ReactQueryDevtools initialIsOpen={false} />
           {children}
         </NextThemesProvider>
         <Toaster 

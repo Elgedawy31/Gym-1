@@ -5,17 +5,18 @@ import { protect, restrictTo } from '../Middlewares/auth.middleware.js';
 
 const router = Router();
 
+router.route('/trainers')
+  .get(userController.getAllTrainer);
+
 // Protect all routes after this middleware
 router.use(protect);
 
 // Current user routes
 router.get('/me', userController.getMe);
-router.patch('/update-me', upload.single('profilePicture'), userController.updateMe);
+router.patch('/me', upload.single('profilePicture'), userController.updateMe);
 router.delete('/delete-me', userController.deleteMe);
 
 router.get('/me', userController.getMe);
-router.route('/top-trainers')
-  .get(userController.getAllTrainer);
 
 
 // Admin-only routes

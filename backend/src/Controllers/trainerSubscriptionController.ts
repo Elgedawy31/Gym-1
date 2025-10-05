@@ -24,7 +24,8 @@ export const createTrainerSubscription = catchAsync(async (req: Request, res: Re
         ...req.body,
         userId: userId.toString()
       });
-
+      console.log(data.trainerId);
+      
       const trainer = await UserModel.findById(data.trainerId);
       if (!trainer) return next(new AppError('Invalid trainer ID', 400));
 

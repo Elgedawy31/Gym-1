@@ -14,11 +14,6 @@ export const productQuerySchema = z.object({
       message: 'Category must be one of: woman, men, general',
     })
     .optional(),
-  search: z
-    .string()
-    .trim()
-    .max(100, 'Search must be at most 100 characters')
-    .optional(),
   page: z
     .string()
     .regex(/^\d+$/, 'Page must be a valid number')

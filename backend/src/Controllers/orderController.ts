@@ -76,21 +76,25 @@ export const createOrder = catchAsync(async (req: Request, res: Response, next: 
  */
 export const getMyOrders = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.user?._id;
+
   if (!userId || !/^[0-9a-fA-F]{24}$/.test(userId.toString())) {
-    return next(new AppError('User not authenticated or invalid user ID', 401));
+    return next(new AppError("User not authenticated or invalid user ID", 401));
   }
 
-  const orders = await OrderModel.find({userId});
-  if (!orders) {
-    return next(new AppError('Orders not found or you do not have access to it', 404));
-  }
+
+    const orders = await OrderModel.find({ userId }).populate("items.productId", "imageUrl name category price");
+
+    if (orders.length === 0) {
+      return next(new AppError("No orders found", 404));
+    }
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     results: orders.length,
     data: { orders },
-  })
-})
+  });
+});
+
 
 /**
  * Gets a specific order by ID for the authenticated user with populated product details.

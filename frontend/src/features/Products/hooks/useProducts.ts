@@ -7,13 +7,13 @@ import { getProductsByType } from "../services/productService";
 
 
 export function useProductsQuery() {
-  const { type, limit, page, search } = useProductsStore();
-  const term = (search || '').trim();
-  const effectiveSearch = term.length >= 2 ? term : undefined;
+  const { type, limit, page, category } = useProductsStore();
+  const effectiveCategory = category || undefined;
   return useQuery<ProductsResponse>({
-    queryKey: ["products", { type, limit, page, search }],
-    queryFn: () => getProductsByType(type, limit, page, effectiveSearch),
+    queryKey: ["products", { type, limit, page, category }],
+    queryFn: () => getProductsByType(type, limit, page, effectiveCategory),
     placeholderData: (prev) => prev,
     staleTime: 10_000,
   });
 }
+
