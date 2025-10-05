@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Image, Loader } from 'lucide-react';
 import Link from 'next/link';
-import { RegisterFormValues } from '@/features/auth/types';
+import { RegisterFormValues } from '@/features/auth/types/types';
 import toast from 'react-hot-toast';
 import { authAction } from '../hooks/actions';
 import { API_CONFIG } from '@/config/api';
