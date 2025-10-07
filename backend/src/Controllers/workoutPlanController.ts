@@ -183,7 +183,6 @@ export const getTrainerWorkoutPlans = catchAsync(async (req: Request, res: Respo
     return next(new AppError('Valid trainer ID is required', 400));
   }
 
-  console.log(trainerId);
   
 
   // Build query with ApiFeatures, filtering by trainerId
@@ -199,9 +198,6 @@ export const getTrainerWorkoutPlans = catchAsync(async (req: Request, res: Respo
 
   // Execute query
   const { results: workoutPlans, total, page, limit } = await features.execute();
-
-  console.log(workoutPlans);
-  
 
   if (!workoutPlans || workoutPlans.length === 0) {
     return next(new AppError('No workout plans found for this trainer', 404));
@@ -249,7 +245,7 @@ export const getSingleWorkoutPlan = catchAsync(async (req: Request, res: Respons
 
   // Find the workout plan
   const workoutPlan = await WorkoutPlanModel.findById(planId)
-    .populate('trainerId', 'name email')
+    .populate('trainerId', 'name email profilePicture')
     .populate('usersSubscribed', 'name email');
 
   if (!workoutPlan) {

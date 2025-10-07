@@ -20,13 +20,12 @@ router.get('/me', userController.getMe);
 
 
 // Admin-only routes
-router.use(restrictTo('admin'));
 router.route('/')
-  .get(userController.getAllUsers);
+  .get(restrictTo('admin'),  userController.getAllUsers);
 
 router.route('/:id')
   .get(userController.getUser)
-  .patch(userController.updateUser)
-  .delete(userController.deleteUser);
+  .patch(restrictTo('admin'), userController.updateUser)
+  .delete(restrictTo('admin'), userController.deleteUser);
 
 export default router;

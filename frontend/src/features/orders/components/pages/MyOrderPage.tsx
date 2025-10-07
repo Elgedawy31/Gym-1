@@ -30,10 +30,6 @@ export default function MyOrderPage() {
   const { data: ordersData, isPending, error } = useMyOrdersQuery();
   const orders = ordersData?.data?.orders || [];
 
-  console.log(ordersData);
-  
-  
-
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'pending':

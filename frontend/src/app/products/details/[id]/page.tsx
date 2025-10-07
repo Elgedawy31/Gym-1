@@ -65,7 +65,6 @@ export default function ProductDetails() {
   };
 
   const handleBuyNow = () => {
-    // TODO: Implement buy now functionality
     console.log('Buy now:', { productId: product._id, quantity });
   };
 

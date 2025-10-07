@@ -59,7 +59,7 @@ export async function getProfile(): Promise<{
   
   
   try {
-    const response = await serverAxios.get(`${API_CONFIG.BASE_URL}/users/me`);
+    const response = await serverAxios.get(API_CONFIG.ENDPOINTS.USERS.GET_ME);
     const token = (await cookies()).get("token")?.value || null;
 
     return {

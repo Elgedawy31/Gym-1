@@ -9,6 +9,7 @@ export interface Trainer {
   _id: string;
   name: string;
   email: string;
+  profilePicture?: string;
 }
 
 export interface SubscribedUser {
@@ -18,6 +19,13 @@ export interface SubscribedUser {
 }
 
 
+export interface ErrorResponse {
+  response: {
+    data: {
+      message: string;
+    };
+  };
+}
 
 export interface WorkoutPlan {
   _id: string;

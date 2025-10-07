@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -13,7 +13,9 @@ import {
   Menu,
   X,
   Sun,
-  Moon
+  Moon,
+  PlaneLanding,
+  Clover
 } from 'lucide-react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
@@ -26,6 +28,11 @@ export default function Navbar() {
   
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const cartItems = cart?.items.length || 0;
 
@@ -34,7 +41,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         
         {/* Left: Mobile Menu Button */}
-        <div className="flex items-center md:hidden">
+        <div className="flex items-center lg:hidden">
           <Button variant="ghost" size="sm" onClick={() => setIsOpen(true)}>
             <Menu className="w-6 h-6" />
           </Button>
@@ -46,7 +53,7 @@ export default function Navbar() {
         </Link>
 
         {/* Center Links (desktop only) */}
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden lg:flex space-x-6">
           <Button variant="ghost" size="sm" asChild>
             <Link href="/products/woman" className="flex items-center gap-2">
               <UserRound className="w-4 h-4" /> Woman
@@ -72,7 +79,13 @@ export default function Navbar() {
 
           <Button variant="ghost" size="sm" asChild>
             <Link href="/subscription" className="flex items-center gap-2">
-              <Package className="w-4 h-4" /> Subscription
+              <PlaneLanding className="w-4 h-4" /> Subscription
+            </Link>
+          </Button>
+
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/workout-plan" className="flex items-center gap-2">
+              <Clover className="w-4 h-4" /> Workout Plans
             </Link>
           </Button>
         </div>
@@ -80,19 +93,22 @@ export default function Navbar() {
        {/* Right Icons */}
         <div className="flex items-center space-x-4">
           {/* Theme Toggle */}
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            >
-              {theme === "light" ? (
-                <Moon className="h-5 w-5" />
-              ) : (
-                <Sun className="h-5 w-5" />
-              )}
-            </Button>
-          </motion.div>
+          {mounted && (
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              >
+                {theme === "light" ? (
+                  <Moon className="h-5 w-5" />
+                ) : (
+                  <Sun className="h-5 w-5" />
+                )}
+              </Button>
+            </motion.div>
+          )}
+
           {/* Cart */}
           <motion.div whileHover={{ scale: 1.1, rotate: 5 }} whileTap={{ scale: 0.95 }}>
             <Button variant="ghost" size="sm" className="p-2 relative" asChild>
@@ -120,10 +136,10 @@ export default function Navbar() {
           </motion.div>
           {!token &&
             <div className="hidden lg:flex gap-4">
-              {/* Sign In */}
+              {/* Login */}
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link href="/login">
-                  <Button variant="outline" size="sm">Sign In</Button>
+                  <Button variant="outline" size="sm">Login</Button>
                 </Link>
               </motion.div>
 
@@ -159,6 +175,8 @@ export default function Navbar() {
             <Link href="/men" onClick={() => setIsOpen(false)} className="text-lg">Men</Link>
             <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-lg">Dashboard</Link>
             <Link href="/products" onClick={() => setIsOpen(false)} className="text-lg">Products</Link>
+            <Link href="/subscription" onClick={() => setIsOpen(false)} className="text-lg">Subscription</Link>
+            <Link href="/workout-plans" onClick={() => setIsOpen(false)} className="text-lg">Workout Plans</Link>
           </div>
         </motion.div>
       )}

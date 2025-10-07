@@ -1,5 +1,5 @@
 import clientAxios from "@/lib/axios/clientAxios";
-import { WorkoutPlan, WorkoutPlansResponse } from "../types";
+import { ErrorResponse, WorkoutPlan, WorkoutPlansResponse } from "../types";
 import { API_CONFIG } from "@/config/api";
 import { AxiosResponse } from "axios";
 
@@ -36,7 +36,7 @@ export const deleteWorkoutPlanServiceService = async (workoutPlanId: string) : P
   }
 }
 
-export const getAllWorkoutPlansService = async (page: number) : Promise<WorkoutPlansResponse> => {
+export const getAllWorkoutPlansService = async (page: number, limit: number) : Promise<WorkoutPlansResponse> => {
   try {
     const response: AxiosResponse<WorkoutPlansResponse> = await clientAxios.get(API_CONFIG.ENDPOINTS.WORKOUT_PLANS.GET_ALL_WORKOUT_PLANS(page));
     return response.data;
@@ -66,12 +66,22 @@ export const getWorkoutPlansByTrainerService = async (trainerId: string) : Promi
   }
 }
 
-export const subscribeToWorkoutPlanService = async (workoutPlanId: string) : Promise<WorkoutPlan> => {
+export const subscribeToWorkoutPlanService = async (
+  workoutPlanId: string
+): Promise<WorkoutPlan> => {
   try {
-    const response: AxiosResponse<{ data: { workoutPlan: WorkoutPlan } }> = await clientAxios.post(API_CONFIG.ENDPOINTS.WORKOUT_PLANS.SUBSCRIBE_TO_WORKOUT_PLAN(workoutPlanId));
+    const response: AxiosResponse<{ data: { workoutPlan: WorkoutPlan } }> =
+      await clientAxios.post(
+        API_CONFIG.ENDPOINTS.WORKOUT_PLANS.SUBSCRIBE_TO_WORKOUT_PLAN(workoutPlanId)
+      );
     return response.data.data.workoutPlan;
-  } catch (error) {
-    console.error("Error subscribing to workout plan:", error);
+  } catch (error: any) {
+    // Throw the backend error to React Query
+    if (error.response?.data?.message) {
+      throw error; // Preserve backend response
+    }
+
+    // Fallback for unknown errors
     throw new Error("Failed to subscribe to workout plan. Please try again.");
   }
-}
+};

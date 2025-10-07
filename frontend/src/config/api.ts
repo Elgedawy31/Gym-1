@@ -7,8 +7,10 @@ export const API_CONFIG = {
       REGISTER: "/auth/register",
     },
     USERS: {
+      GET_ME: "users/me",
       UPDATE: (id?: string) => `/users/${id || 'me'}`,
       TOP_TRAINERS:"users/trainers?limit=3",
+      GET_TRAINER: (id: string) =>  `users/${id}`
       // Add other user-related endpoints as needed
     },
     PRODUCTS: {
@@ -36,13 +38,19 @@ export const API_CONFIG = {
       UPDATE_SUBSCRIPTION: (subId: string) => `/subscription/${subId}`,
     },
     WORKOUT_PLANS: {
-      GET_ALL_WORKOUT_PLANS: (page: number = 1) => `/workout-plans/all?page=${page}`,
+      GET_ALL_WORKOUT_PLANS: (page: number = 1, limit: number = 10) => `/workout-plans/all?page=${page}&limit=${limit}`,
       GET_WORKOUT_PLAN_BY_ID: (workoutPlanId: string) => `/workout-plans/${workoutPlanId}`,
       GET_WORKOUT_PLANS_BY_TRAINER: (trainerId: string) => `/workout-plans/trainer/${trainerId}`,
       CREATE_WORKOUT_PLAN: "/workout-plans",
       UPDATE_WORKOUT_PLAN: (workoutPlanId: string) => `/workout-plans/${workoutPlanId}`,
       DELETE_WORKOUT_PLAN: (workoutPlanId: string) => `/workout-plans/${workoutPlanId}`,
       SUBSCRIBE_TO_WORKOUT_PLAN: (workoutPlanId: string) => `/workout-plans/${workoutPlanId}/subscribe`,
+    },
+    TRAINER_SUBSCRIPTION: {
+      CREATE_TRAINER_SUBSCRIPTION: "/trainer-subscription",
+      GET_MY_TRAINER_SUBSCRIPTION: "/trainer-subscription/me",
+      GET_ALL_TRAINER_SUBSCRIPTION: (page: number = 1) => `/trainer-subscription?page=${page}`,
+      UPDATE_TRAINER_SUBSCRIPTION: (trainerSubscriptionId: string) => `/trainer-subscription/${trainerSubscriptionId}`,
     },
   },
 };

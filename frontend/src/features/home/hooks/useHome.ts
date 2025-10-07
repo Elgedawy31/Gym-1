@@ -10,6 +10,11 @@ export async function getTopTrainers(): Promise<Trainer[]> {
   return res.data.data.trainers;
 }
 
+export async function getTrainer(id: string): Promise<Trainer> {
+  const res = await serverAxios.get(API_CONFIG.ENDPOINTS.USERS.GET_TRAINER(id))
+  return res.data.data.user;
+}
+
 export async function getHomeProductsByType(type: string, limit: number, page: number, search?: string): Promise<ProductsResponse> {
   const res = await serverAxios.get(
     API_CONFIG.ENDPOINTS.PRODUCTS.GET_HOME_PRODUCTS_BY_TYPE(type, limit)

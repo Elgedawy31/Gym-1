@@ -59,7 +59,7 @@ export default function LoginPage() {
       >
         <Card className="w-full rounded-2xl shadow-xl p-6">
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-3xl font-bold">Sign In</CardTitle>
+            <CardTitle className="text-3xl font-bold">Login</CardTitle>
             <CardDescription>Welcome back! Please enter your details.</CardDescription>
           </CardHeader>
           <CardContent className="pt-4">

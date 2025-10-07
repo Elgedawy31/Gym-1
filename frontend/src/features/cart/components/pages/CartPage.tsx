@@ -57,9 +57,7 @@ export default function CartPage() {
   };
 
   const handleClearCart = () => {
-    if (confirm('Are you sure you want to clear your cart?')) {
       clearCart.mutate();
-    }
   };
 
   if (isCartLoading) {

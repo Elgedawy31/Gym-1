@@ -241,7 +241,7 @@ export default function ProfilePage() {
                 <Shield className="w-4 h-4 mr-2" />
                 {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
               </Badge>
-              <Badge variant="outline" className="px-4 py-2 text-sm font-medium text-background">
+              <Badge variant="outline" className="px-4  border-background py-2 text-sm font-medium text-background">
                 {getGenderIcon(user.gender)} {user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}
               </Badge>
             </div>

@@ -7,17 +7,46 @@ import { filterObj } from '../Utils/FilterObj.js';
 import ApiFeatures from '../Utils/ApiFeatures.js';
 import { IUser } from '../types/userTypes.js';
 import { UserQueryType, userQuerySchema } from '../Schemas/userSchema.js';
+import SubscriptionModel from '../Models/subscriptionModel.js';
 
 /**
- * Get current user profile
+ * Get current user profile with active subscription (if any).
+ * @route GET /api/users/me
+ * @access Private
+ * @returns {object} User object with optional subscription
+ * @throws {AppError} If user is not authenticated or operation fails
  */
-export const getMe = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
-  const user = await UserModel.findById(req.user?._id);
-  
-  res.status(200).json({
-    status: 'success',
-    data: { user }
-  });
+export const getMe = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const userId = req.user?._id;
+  if (!userId || !/^[0-9a-fA-F]{24}$/.test(userId.toString())) {
+    return next(new AppError('User not authenticated or invalid user ID', 401));
+  }
+
+  try {
+    // Find user by ID, excluding sensitive fields
+    const user = await UserModel.findById(userId, '-password -__v').lean();
+    if (!user) {
+      return next(new AppError('User not found or deleted', 404));
+    }
+
+    // Find active subscription for the user
+    const subscription = await SubscriptionModel.findOne({
+      userId,
+      status: 'active',
+    }).select('planType status createdAt updatedAt');
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user: {
+          ...user,
+          subscription: subscription || null,
+        },
+      },
+    });
+  } catch (error) {
+    return next(new AppError('Failed to fetch user profile', 500));
+  }
 });
 
 /**
