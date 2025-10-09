@@ -42,17 +42,13 @@ const productSchema: Schema<IProduct> = new Schema(
       type: String,
       trim: true,
       enum: {
-        values: ['woman', 'men', 'general'],
+        values: ['women', 'men', 'general', 'all'],
         message: '{VALUE} is not a valid type',
       },
     },
     imageUrl: {
       type: String,
       trim: true,
-      validate: {
-        validator: (value: string) => !value || /^https?:\/\/.+\.(jpg|jpeg|png|gif)$/.test(value),
-        message: 'Image URL must be a valid URL ending with .jpg, .jpeg, .png, or .gif',
-      },
     },
   },
   {

@@ -40,6 +40,8 @@ export const createProduct = catchAsync(async (req: Request, res: Response, next
       const issues = error.issues.map((e) => e.message).join(", ");
       return next(new AppError(`Validation error: ${issues}`, 400));
     }
+    console.log(error);
+    
     return next(new AppError('Failed to create product', 500));
   }
 });
@@ -56,7 +58,7 @@ export const getAllProducts = catchAsync(async (req: Request, res: Response, nex
     const queryParams: ProductQueryType = productQuerySchema.parse(req.query);
     // Treat 'general' as no type filter
     const normalizedParams: ProductQueryType = { ...queryParams } as ProductQueryType;
-    if ((normalizedParams as any).type === 'general') {
+    if ((normalizedParams as any).type === 'all') {
       delete (normalizedParams as any).type;
     }
 

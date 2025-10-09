@@ -10,8 +10,8 @@ export const productQuerySchema = z.object({
     })
     .optional(),
     type: z
-    .enum(['woman', 'men', 'general'], {
-      message: 'Category must be one of: woman, men, general',
+    .enum(['women', 'men', 'general', 'all'], {
+      message: 'Category must be one of: women, men, general, all',
     })
     .optional(),
   page: z

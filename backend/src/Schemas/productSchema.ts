@@ -23,7 +23,7 @@ export const productSchema = z.object({
     .enum(['equipment', 'supplements', 'clothing', 'other'])
     .optional(),
   type: z
-    .enum(['woman', 'men', 'general'])
+    .enum(['women', 'men', 'general', 'all'])
     .optional(),
   createdAt: z.date().optional().default(() => new Date()),
   updatedAt: z.date().optional(),

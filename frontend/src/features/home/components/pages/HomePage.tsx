@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import { getTopTrainers } from "../../hooks/useHome";
 import { Trainer } from "../../types";
 import MenSection from "../templates/MenSection";
-import WomanSection from "../templates/WomanSection";
+import WomenSection from "../templates/WomenSection";
 
 export default function HomePage() {
   const [trainers, setTrainers] = useState<Trainer[]>([]);
@@ -41,7 +41,7 @@ export default function HomePage() {
       <FeaturesSection />
       <TrainersSection trainers={trainers}/>
       <MenSection />
-      <WomanSection />
+      <WomenSection />
       <Footer />
     </div>
   );

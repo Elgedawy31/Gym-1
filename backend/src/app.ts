@@ -18,6 +18,7 @@ import trainerSubscriptionRoute from "./Routes/trainerSubscriptionRoutes.js"
 import productRoute from "./Routes/productRoute.js"
 import cartRoute from "./Routes/cartRoutes.js";
 import orderRoute from "./Routes/orderRoute.js";
+import dashboardRoute from "./Routes/dashboardRoute.js"
 
 dotenv.config();
 
@@ -45,6 +46,7 @@ app.use("/api/trainer-subscription", trainerSubscriptionRoute)
 app.use("/api/products", productRoute)
 app.use("/api/cart", cartRoute)
 app.use("/api/orders", orderRoute)
+app.use("/api/dashboard", dashboardRoute)
 
 
 // Handle undefined routes

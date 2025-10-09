@@ -3,7 +3,7 @@
 import { create } from "zustand";
 
 type ProductsState = {
-  type: "general" | "men" | "woman";
+  type: "general" | "men" | "women";
   page: number;
   limit: number;
   category: string;

@@ -1,69 +1,41 @@
-// // services/auth.ts
-// import api from "@/lib/axios";
-// import type { IUpdateMe, IUser } from "@/types/authType";
-// import { AxiosError } from "axios";
+"use client";
 
-// /**
-//  * Fetches the current user's data from the backend.
-//  * @returns A promise that resolves to the current user's data.
-//  * @throws Error if the request fails.
-//  */
-// export const getMeService = async (): Promise<IUser> => {
-//   try {
-//     const res = await api.get("/users/me");
-//     return res.data.user;
-//   } catch (error) {
-//     throw new Error(
-//       `Failed to fetch user: ${
-//         error instanceof AxiosError && error.response
-//           ? error.response.data.message || error.message
-//           : "Unknown error"
-//       }`
-//     );
-//   }
-// };
+import { API_CONFIG } from "@/config/api";
+import axios from "axios";
+import { UsersResponse } from "../types/userTypes";
+import clientAxios from "@/lib/axios/clientAxios";
 
-// /**
-//  * Updates the current user's data, supporting file uploads (e.g., profile picture).
-//  * @param data - The user data to update (IUpdateMe type).
-//  * @param hasFile - Optional flag to indicate if a file is included (for multipart/form-data).
-//  * @returns A promise that resolves to the updated user's data.
-//  * @throws Error if the update fails.
-//  */
-// export const updateMeService = async (data: IUpdateMe): Promise<IUser> => {
-//   try {
-//     const res = await api.patch("/users/update-me", data, 
-//       { headers: { 
-//         "Content-Type": "multipart/form-data" 
-//       } }
-//     );
-//     return res.data.user;
-//   } catch (error) {
-//     throw new Error(
-//       `Failed to update user: ${
-//         error instanceof AxiosError && error.response
-//           ? error.response.data.message || error.message
-//           : "Unknown error"
-//       }`
-//     );
-//   }
-// };
+export async function getAllUsers(page: number = 1, role?: string): Promise<UsersResponse> {
+  try {
+    const response = await clientAxios.get(API_CONFIG.ENDPOINTS.DASHBOARD_USER.GET_ALL_USERS(page, role));
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      throw error.response?.data ?? error;
+    }
+    throw error;
+  }
+}
 
-// /**
-//  * Deactivates the current user's account.
-//  * @returns A promise that resolves when the account is deactivated.
-//  * @throws Error if the request fails.
-//  */
-// export const deleteMeService = async (): Promise<void> => {
-//   try {
-//     await api.delete("/users/delete-me");
-//   } catch (error) {
-//     throw new Error(
-//       `Failed to deactivate account: ${
-//         error instanceof AxiosError && error.response
-//           ? error.response.data.message || error.message
-//           : "Unknown error"
-//       }`
-//     );
-//   }
-// };
+export async function getUserById(userId: string) {
+  try {
+    const response = await clientAxios.get(API_CONFIG.ENDPOINTS.DASHBOARD_USER.GET_USER_BY_ID(userId));
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      throw error.response?.data ?? error;
+    }
+    throw error;
+  }
+}
+
+export async function deleteUser(userId: string): Promise<void> {
+  try {
+    await clientAxios.delete(API_CONFIG.ENDPOINTS.DASHBOARD_USER.DELETE_USER(userId));
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      throw error.response?.data ?? error;
+    }
+    throw error;
+  }
+}

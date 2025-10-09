@@ -34,19 +34,22 @@ export default function ProductsSection({ products, reverseAnimation }: Products
                 <Card className="overflow-hidden hover:shadow-xl transition-all p-0 duration-300 group-hover:bg-primary/5 cursor-pointer">
                   <CardHeader className="p-0">
                     <div className="relative w-full h-64 overflow-hidden">
+                    {product.imageUrl ? (
                       <Image
                         src={product.imageUrl}
                         alt={product.name}
                         fill
-                        sizes="(max-width: 768px) 100vw,
-                              (max-width: 1024px) 50vw,
-                              33vw"
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="object-cover"
                       />
+                    ) : (
+                      <div className="w-full h-full bg-secondary flex items-center justify-center text-foreground">
+                        No image
+                      </div>
+                    )}
                     </div>
                   </CardHeader>
                   <CardContent className="p-4">
-                    <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors">{product.name}</CardTitle>
+                    <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors line-clamp-1">{product.name}</CardTitle>
                     <CardDescription className="text-2xl font-bold text-primary mb-4">${product.price}</CardDescription>
                     <Button className="w-full group-hover:bg-primary/90 transition-colors">View Details</Button>
                   </CardContent>

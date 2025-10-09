@@ -10,10 +10,10 @@ import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 
 
-const PAGE_TITLES: Record<"general" | "men" | "woman", string> = {
+const PAGE_TITLES: Record<"general" | "men" | "women", string> = {
   general: "Supplements & Gym Equipment",
   men: "Men's Gym Clothing & Accessories",
-  woman: "Women's Gym Clothing & Accessories",
+  women: "Women's Gym Clothing & Accessories",
 };
 
 
@@ -25,7 +25,7 @@ export default function ProductsPage() {
   const { data, isPending } = useProductsQuery();
 
   const title = PAGE_TITLES[type];
-  useEffect(() => { setType(type as "general" | "men" | "woman"); }, [type, setType]);
+  useEffect(() => { setType(type as "general" | "men" | "women"); }, [type, setType]);
   
   const products = data?.data?.products ?? [];
   const total = data?.total ?? 0;

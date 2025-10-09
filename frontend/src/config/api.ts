@@ -14,7 +14,6 @@ export const API_CONFIG = {
       // Add other user-related endpoints as needed
     },
     PRODUCTS: {
-      GET_PRODUCTS: "/products",
       GET_HOME_PRODUCTS_BY_TYPE :(type: string, limit: number) => `/products?type=${type}&limit=${limit}`,
       GET_PRODUCTS_BY_TYPE: (type: string, limit: number, page: number = 1, category?: string) => `/products?type=${type}&limit=${limit}&page=${page}${category ? `&category=${encodeURIComponent(category)}` : ''}`,
       GET_PRODUCT_BY_ID: (id: string) => `/products/${id}`,
@@ -52,6 +51,22 @@ export const API_CONFIG = {
       GET_ALL_TRAINER_SUBSCRIPTION: (page: number = 1) => `/trainer-subscription?page=${page}`,
       UPDATE_TRAINER_SUBSCRIPTION: (trainerSubscriptionId: string) => `/trainer-subscription/${trainerSubscriptionId}`,
     },
+    DASHBOARD: {
+      GET_DASHBOARD_STATS: "/dashboard/stats",
+      GET_PRODUCTS: ( page: number = 1, type?: string) => `/products?page=${page}&limit=12${type ? `&type=${encodeURIComponent(type)}` : ''}`,
+      CREATE_PRODUCT: "/products",
+      UPDATE_PRODUCT: ( productId: string ) => `/products/${productId}`,
+      DELETE_PRODUCT:( productId: string ) => `/products/${productId}`,
+    },
+    DASHBOARD_USER: {
+      GET_ALL_USERS: ( page: number = 1, role?: string) => `/users?page=${page}&limit=12${role ? `&role=${encodeURIComponent(role)}` : ''}`,
+      GET_USER_BY_ID: (userId: string) => `/users/${userId}`,
+      DELETE_USER:( userId: string ) => `/users/${userId}`,
+    },
+    DASHBOARD_ORDERS: {
+      GET_ALL_ORDERS: ( page: number = 1, status?: string) => `/orders?page=${page}&limit=12${status ? `&status=${encodeURIComponent(status)}` : ''}`,
+      UPDATE_ORDER_STATUS: (orderId: string) => `/orders/${orderId}`
+    }
   },
 };
 

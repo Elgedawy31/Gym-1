@@ -4,7 +4,7 @@ import React from "react";
 import { Toaster } from "react-hot-toast";
 import { getQueryClient } from "@/utils/queryClient";
 import AuthProvider from "../providers/AuthProvider";
-import { type IUser } from "@/features/auth/types";
+import { type IUser } from "@/features/auth/types/types";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 

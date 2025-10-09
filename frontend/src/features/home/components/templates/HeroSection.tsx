@@ -25,7 +25,7 @@ export default function HeroSection() {
             <Image src="https://images.pexels.com/photos/1229356/pexels-photo-1229356.jpeg" priority alt="Man working out" width={400} height={500} className="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-300" />
           </div>
           <div className="relative overflow-hidden rounded-2xl shadow-lg">
-            <Image src="https://images.pexels.com/photos/7956746/pexels-photo-7956746.jpeg" priority alt="Woman working out" width={400} height={500} className="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-300" />
+            <Image src="https://images.pexels.com/photos/7956746/pexels-photo-7956746.jpeg" priority alt="Women working out" width={400} height={500} className="w-full h-80 md:h-96 object-cover hover:scale-105 transition-transform duration-300" />
           </div>
         </motion.div>
       </div>

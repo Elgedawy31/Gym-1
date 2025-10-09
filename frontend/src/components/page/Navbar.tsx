@@ -55,8 +55,8 @@ export default function Navbar() {
         {/* Center Links (desktop only) */}
         <div className="hidden lg:flex space-x-6">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/products/woman" className="flex items-center gap-2">
-              <UserRound className="w-4 h-4" /> Woman
+            <Link href="/products/women" className="flex items-center gap-2">
+              <UserRound className="w-4 h-4" /> Women
             </Link>
           </Button>
           <Button variant="ghost" size="sm" asChild>
@@ -171,7 +171,7 @@ export default function Navbar() {
             </Button>
           </div>
           <div className="flex flex-col p-6 bg-background/95 space-y-4">
-            <Link href="/women" onClick={() => setIsOpen(false)} className="text-lg">Woman</Link>
+            <Link href="/women" onClick={() => setIsOpen(false)} className="text-lg">Women</Link>
             <Link href="/men" onClick={() => setIsOpen(false)} className="text-lg">Men</Link>
             <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-lg">Dashboard</Link>
             <Link href="/products" onClick={() => setIsOpen(false)} className="text-lg">Products</Link>

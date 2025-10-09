@@ -6,7 +6,7 @@ import { getHomeProductsByType } from '../../hooks/useHome';
 import { motion } from 'framer-motion';
 
 
-export default function WomanSection() {
+export default function WomenSection() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isPending, setIsPending] = useState<boolean>(false);
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function WomanSection() {
       setIsPending(true);
 
       try {
-        const res = await getHomeProductsByType("woman", 6, 1);
+        const res = await getHomeProductsByType("women", 6, 1);
         if(res){
           setProducts(res.data.products);
         }
