@@ -16,7 +16,7 @@ export default function HeroSection() {
             Join Elgedawy Gym and embark on a journey to peak fitness. Tailored programs for men and women to build strength, endurance, and confidence.
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ type: 'spring', stiffness: 400, damping: 17 }}>
-            <Button size="lg" className="px-8 py-4 text-lg"><Link href="/join">Start Your Journey</Link></Button>
+            <Button size="lg" className="px-8 py-4 text-lg"><Link href="/subscription">Start Your Journey</Link></Button>
           </motion.div>
         </motion.div>
 
