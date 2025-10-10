@@ -1,6 +1,7 @@
 import { useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
 import type { ISubscription, PlanType, UpdateRequest } from "../types";
 import { createSubscriptionService, getMySubscriptionService } from "../service/subscriptionService";
+import toast from "react-hot-toast";
 
 // Define a custom error type for better error handling
 interface ApiError {
@@ -41,10 +42,12 @@ export function useCreateSubscription(): UseMutationResult<
     onError: (error: ApiError) => {
       // Log error for debugging
       console.error("Subscription creation failed:", error.message);
+      toast.error(`Subscription creation failed`);
+
     },
     onSuccess: (data: ISubscription) => {
       // Optional: Add success handling, e.g., invalidate queries or show notification
-      console.log("Subscription created successfully:", data);
+      window.location.reload();
     },
   });
 }

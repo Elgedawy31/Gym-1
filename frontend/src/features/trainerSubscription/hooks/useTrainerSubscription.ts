@@ -7,7 +7,8 @@ export const useCreateTrainerSubscription = () => {
   return useMutation<Subscription, Error, ITrainerSubscriptionRequest>({
     mutationFn: createTrainerSubscriptionService,
     onSuccess: () => {
-      toast.success("Trainer subscription created successfully");
+      toast.success("Trainer subscription successfully");
+      window.location.reload();
     },
     onError: () => {
       toast.error("Failed to create trainer subscription");

@@ -35,9 +35,6 @@ export const workoutPlanSchema = z.object({
     .max(500, 'Description cannot exceed 500 characters')
     .trim()
     .optional(),
-  price: z
-  .number()
-  .min(0, 'Price must be at least 0'),
   level: z.enum(['beginner', 'intermediate', 'advanced'], {
     message: 'Level must be beginner, intermediate, or advanced',
   }),

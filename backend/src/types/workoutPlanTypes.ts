@@ -4,7 +4,6 @@ export interface IWorkoutPlan extends Document {
   trainerId: Types.ObjectId;
   title: string;
   description?: string;
-  price: number;
   level: 'beginner' | 'intermediate' | 'advanced';
   duration: number;
   exercises: { name: string; sets: number; reps: number; rest: string }[];

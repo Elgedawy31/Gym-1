@@ -30,7 +30,7 @@ router.patch('/:planId', restrictTo('trainer', "admin"), updateWorkoutPlan);
  * @description Get all workout plans with optional filtering and pagination (Admin only).
  * @access Private (Admin only)
  */
-router.get('/all', restrictTo('admin'), getAllWorkoutPlans);
+router.get('/all', getAllWorkoutPlans);
 
 /**
  * @route GET /api/workout-plans/trainer/:trainerId

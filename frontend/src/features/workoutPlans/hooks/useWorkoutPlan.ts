@@ -1,27 +1,28 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ErrorResponse, WorkoutPlan, WorkoutPlansResponse } from "../types";
+import { ErrorResponse, WorkoutPlan, WorkoutPlanRequest, WorkoutPlansResponse } from "../types";
 import { createWorkoutPlanService, deleteWorkoutPlanServiceService, getAllWorkoutPlansService, getWorkoutPlanByIdService, getWorkoutPlansByTrainerService, subscribeToWorkoutPlanService, updateWorkoutPlanService } from "../service/workoutPlanService";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { useWorkoutPlanStore } from "../store/workoutPlanStore";
 
+
 export const useCreateWorkoutPlan = () => {
   const queryClient = useQueryClient();
-  return useMutation({
+
+  return useMutation<WorkoutPlan, Error, WorkoutPlanRequest>({
     mutationKey: ["workoutPlans"],
-    mutationFn: async (workoutPlan: WorkoutPlan) => {
-      return await createWorkoutPlanService(workoutPlan);
+    mutationFn: async (workoutPlanData) => {
+      return await createWorkoutPlanService(workoutPlanData);
     },
     onSuccess: () => {
       toast.success("Workout plan created successfully");
       queryClient.invalidateQueries({ queryKey: ["workoutPlans"] });
-
     },
     onError: () => {
       toast.error("Failed to create workout plan");
     },
   });
-}
+};
 
 export const useUpdateWorkoutPlan = () => {
   const queryClient = useQueryClient();

@@ -125,7 +125,7 @@ export default function TrainerProfilePage() {
 
               {/* role & subscribe button */}
               <div className="flex items-center gap-2">
-                <Badge variant="default" className="px-3 py-2 text-sm font-medium flex items-center gap-2">
+                <Badge variant="default" className="px-3 py-2 text-sm font-medium bg-background text-primary flex items-center gap-2">
                   <Shield className="w-4 h-4" />
                   {trainer.role.charAt(0).toUpperCase() + trainer.role.slice(1)}
                 </Badge>
@@ -142,7 +142,7 @@ export default function TrainerProfilePage() {
             </div>
 
             <div className="flex items-center justify-center gap-3 mt-4">
-              <Badge variant="outline" className="px-4 py-2 text-sm font-medium text-background">
+              <Badge variant="outline" className="px-4 py-2 text-sm font-medium border border-card text-background">
                 {trainer.gender === 'male' ? '♂ Male' : trainer.gender === 'female' ? '♀ Female' : '⚧ Other'}
               </Badge>
 
@@ -278,7 +278,6 @@ export default function TrainerProfilePage() {
                             <p className="text-sm text-muted-foreground">{plan.description}</p>
                             <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
                               <span>• Duration: {plan.duration} weeks</span>
-                              <span>• Price: ${plan.price}</span>
                               <span>• Subscribed: {plan.subscribedCount} users</span>
                               <span>• Created: {new Date(plan.createdAt).toLocaleDateString('en-US')}</span>
                             </div>
@@ -297,7 +296,7 @@ export default function TrainerProfilePage() {
                                 variant="outline"
                                 asChild
                               >
-                                <Link href={`/workout-plan/${plan.id}`}>
+                                <Link href={`/workout-plan/details/${plan.id}`}>
                                   View Details
                                 </Link>
                               </Button>

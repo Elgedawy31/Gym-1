@@ -134,7 +134,6 @@ const { data: workoutPlansData, isLoading: isLoadingPlans, isError: plansError }
                           <p className="text-sm text-muted-foreground">{plan.description}</p>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-muted-foreground">
                             <span>• Duration: {plan.duration} weeks</span>
-                            <span>• Price: ${plan.price}</span>
                             <span>• Subscribed: {plan.subscribedCount} users</span>
                             <span>• Created: {new Date(plan.createdAt).toLocaleDateString('en-US')}</span>
                             <span>• Trainer: {plan.trainerId?.name || 'Unknown'}</span>
@@ -152,7 +151,7 @@ const { data: workoutPlansData, isLoading: isLoadingPlans, isError: plansError }
                           </div>
                           <div className="flex justify-end gap-2">
                             <Button variant="outline" asChild>
-                              <Link href={`/workout-plan/${plan.id}`}>View Details</Link>
+                              <Link href={`/workout-plan/details/${plan.id}`}>View Details</Link>
                             </Button>
                             <Button
                               variant="default"

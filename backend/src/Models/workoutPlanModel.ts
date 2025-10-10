@@ -62,11 +62,6 @@ const workoutPlanSchema: Schema<IWorkoutPlan> = new Schema(
       trim: true,
       maxlength: [500, 'Description cannot exceed 500 characters'],
     },
-    price: {
-      type: Number,
-      required: [true, 'Price is required'],
-      min: [0, 'Price must be at least 0'],
-    },
     level: {
       type: String,
       enum: {

@@ -26,7 +26,8 @@ import {
   UserCheck,
   Activity,
   ShoppingBag,
-  Dumbbell
+  Dumbbell,
+  Plus
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { LogOut } from 'lucide-react';
@@ -304,6 +305,17 @@ export default function ProfilePage() {
                     </p>
                   </div>
                 </div>
+                {user.role === "trainer" &&
+                  <Link href="/workout-plan/create-workout" >
+                    <Button
+                      className="flex items-center gap-2 w-full text-center"
+                      >
+                      <Plus className="w-4 h-4" />
+                        Create Workout Plan
+                    </Button>
+                  </Link>
+                }
+
               </CardContent>
             </Card>
           </div>

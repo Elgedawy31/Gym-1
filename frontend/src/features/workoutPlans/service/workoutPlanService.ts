@@ -1,9 +1,9 @@
 import clientAxios from "@/lib/axios/clientAxios";
-import { ErrorResponse, WorkoutPlan, WorkoutPlansResponse } from "../types";
+import { ErrorResponse, WorkoutPlan, WorkoutPlanRequest, WorkoutPlansResponse } from "../types";
 import { API_CONFIG } from "@/config/api";
 import { AxiosResponse } from "axios";
 
-export const createWorkoutPlanService = async (workoutPlan: WorkoutPlan) : Promise<WorkoutPlan> => {
+export const createWorkoutPlanService = async (workoutPlan: WorkoutPlanRequest) : Promise<WorkoutPlan> => {
   try {
     const response: AxiosResponse<{ data: { workoutPlan: WorkoutPlan } }> = await clientAxios.post(
       API_CONFIG.ENDPOINTS.WORKOUT_PLANS.CREATE_WORKOUT_PLAN,
