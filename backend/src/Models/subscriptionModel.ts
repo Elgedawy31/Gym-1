@@ -10,6 +10,7 @@ const subscriptionSchema: Schema<ISubscription> = new Schema(
   {
     userId: {
       type: String,
+      ref: "User",
       required: [true, 'User ID is required'],
       match: [/^[0-9a-fA-F]{24}$/, 'User ID must be a valid MongoDB ObjectId'],
     },

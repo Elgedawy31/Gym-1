@@ -1,26 +1,25 @@
 export type PlanType = 'monthly' | 'quarterly' | 'yearly';
 
-// export interface ISubscription {
-//   _id: string;
-//   userId: string;
-//   planType: PlanType;
-//   status: 'active' | 'inactive' | 'cancelled' | 'expired';
-//   createdAt: string;
-//   updatedAt: string;
-// }
+type UserSub = {
+  _id: string,
+  name: string,
+  email: string,
+}
+
 
 export interface ISubscription {
   userId: string;
+  trainerId?: string;
   planType: PlanType;
   status: "active" | "expired" | "canceled";
   _id: string;
-  id: string;
+  id?: string;
   startDate: string;
   endDate: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 export interface SubscriptionResponse {
@@ -30,18 +29,12 @@ export interface SubscriptionResponse {
   };
 }
 
-export interface AllSubscriptionsResponse {
-  status: string;
-  results: number;
-  total: number;
-  page: number;
-  limit: number;
-  data: {
-    subscriptions: ISubscription[];
-  };
-}
+
+
+export type SubscriptionStatus = 'active' | 'expired' | 'canceled';
 
 export interface UpdateRequest {
-  subId: string,
-  planType: PlanType,
+  subId: string;
+  planType?: PlanType;
+  status?: SubscriptionStatus;
 }

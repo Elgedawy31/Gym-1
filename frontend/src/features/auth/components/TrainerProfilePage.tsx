@@ -30,7 +30,7 @@ import { WorkoutPlansResponse, WorkoutPlan } from '@/features/workoutPlans/types
 import { useSubscribeToWorkoutPlan } from '@/features/workoutPlans/hooks/useWorkoutPlan';
 import { TrainerProfileSkeleton } from './TrainerProfileSkeleton';
 import { Trainer } from '@/features/home/types';
-import { useCreateTrainerSubscription, useGetMyTrainerSubscription } from '@/features/trainer subscription/hooks/useTrainerSubscription';
+import { useCreateTrainerSubscription, useGetMyTrainerSubscription } from '@/features/trainerSubscription/hooks/useTrainerSubscription';
 
 export default function TrainerProfilePage() {
   const { trainerId } = useParams<{ trainerId: string }>();

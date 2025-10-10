@@ -75,7 +75,7 @@ export const getMySubscription = catchAsync(async (req: Request, res: Response, 
  */
 export const getAllSubscriptions = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
   // Build query using ApiFeatures with explicit type
-  const features = new ApiFeatures<ISubscription>(SubscriptionModel.find(), req.query)
+  const features = new ApiFeatures<ISubscription>(SubscriptionModel.find().populate("userId", "name email"), req.query)
     .filter()
     .sort()
     .paginate();

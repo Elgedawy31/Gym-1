@@ -1,4 +1,3 @@
-import React from 'react'
 import OrdersTemplate from '../templates/OrdersTemplate'
 
 export default function DashboardOrderPage() {

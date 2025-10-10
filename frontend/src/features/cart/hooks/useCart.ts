@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getCart, addToCart, updateCartItem, removeFromCart, clearCart } from "../services/cartService";
 import { AddToCartRequest, UpdateCartItemRequest } from "../types/cartTypes";
 import { useCartStore } from "../store/cartStore";
+import toast from "react-hot-toast";
 
 export function useCartQuery() {
   const { setCart, setLoading, setError } = useCartStore();
@@ -45,6 +46,9 @@ export function useAddToCart() {
       // Update with server response
       useCartStore.getState().setCart(data.data.cart);
       queryClient.invalidateQueries({ queryKey: ["cart"] });
+      // INSERT_YOUR_CODE
+      // Show success toast
+        toast.success("Item added to cart!");
     },
     onError: () => {
       // Revert optimistic update on error

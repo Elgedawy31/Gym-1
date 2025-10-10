@@ -168,7 +168,7 @@ export const updateSubscriptionStatus = catchAsync(async (req: Request, res: Res
   }
 
   // Validate request body
-  const { status } = trainerSubscriptionSchema.partial().pick({ status: true }).parse(req.body);
+  const updateData = trainerSubscriptionSchema.partial().pick({ status: true, planType: true }).parse(req.body);
 
   // Check if subscription exists and user is authorized
   const subscription = await TrainerSubscriptionModel.findById(subscriptionId);
@@ -182,7 +182,7 @@ export const updateSubscriptionStatus = catchAsync(async (req: Request, res: Res
   // Update subscription status
   const updatedSubscription = await TrainerSubscriptionModel.findByIdAndUpdate(
     subscriptionId,
-    { status, updatedAt: new Date() },
+    { ...updateData, updatedAt: new Date() },
     { new: true, runValidators: true }
   );
 

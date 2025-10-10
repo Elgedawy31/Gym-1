@@ -7,8 +7,8 @@ import {
   getTrainerSubscriptions,
   updateSubscriptionStatus,
   deleteSubscription,
+  getAllSubscriptions,
 } from '../Controllers/trainerSubscriptionController.js';
-import { getAllSubscriptions } from '../Controllers/subscriptionController.js';
 
 const router = Router();
 router.use(protect);

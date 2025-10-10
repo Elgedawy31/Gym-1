@@ -33,7 +33,7 @@ export const API_CONFIG = {
     SUBSCRIPTION: {
       CREATE_SUBSCRIPTION: "/subscription",
       GET_MY_SUBSCRIPTION: "/subscription/me",
-      GET_ALL_SUBSCRIPTION: (page: number = 1) => `/subscription?page=${page}`,
+      GET_ALL_SUBSCRIPTION: ( page: number = 1, planType?: string) => `/subscription?page=${page}&limit=12${planType ? `&planType=${encodeURIComponent(planType)}` : ''}`,
       UPDATE_SUBSCRIPTION: (subId: string) => `/subscription/${subId}`,
     },
     WORKOUT_PLANS: {
@@ -48,8 +48,8 @@ export const API_CONFIG = {
     TRAINER_SUBSCRIPTION: {
       CREATE_TRAINER_SUBSCRIPTION: "/trainer-subscription",
       GET_MY_TRAINER_SUBSCRIPTION: "/trainer-subscription/me",
-      GET_ALL_TRAINER_SUBSCRIPTION: (page: number = 1) => `/trainer-subscription?page=${page}`,
-      UPDATE_TRAINER_SUBSCRIPTION: (trainerSubscriptionId: string) => `/trainer-subscription/${trainerSubscriptionId}`,
+      GET_ALL_TRAINER_SUBSCRIPTION: (page: number, planType?: string) => `/trainer-subscription/all?page=${page}&limit=12${planType ? `&planType=${encodeURIComponent(planType)}` : ''}`,
+      UPDATE_TRAINER_SUBSCRIPTION: (subId: string) => `/trainer-subscription/${subId}`,
     },
     DASHBOARD: {
       GET_DASHBOARD_STATS: "/dashboard/stats",

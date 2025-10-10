@@ -34,6 +34,7 @@ import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { useCartStore } from '@/features/cart/store/cartStore';
 
 
 
@@ -44,6 +45,10 @@ export default function ProfilePage() {
   const [isFetchingProfile, setIsFetchingProfile] = useState(true);
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const { cart } = useCartStore();
+
+  console.log();
+  
   
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
@@ -464,7 +469,7 @@ export default function ProfilePage() {
                     <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
                       <ShoppingBag className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-1">0</div>
+                    <div className="text-3xl font-bold text-foreground mb-1">3</div>
                     <div className="text-sm text-muted-foreground font-medium">Orders Placed</div>
                   </Link>
                   
@@ -472,7 +477,7 @@ export default function ProfilePage() {
                     <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
                       <ShoppingBag className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-1">0</div>
+                    <div className="text-3xl font-bold text-foreground mb-1">{cart?.items.length}</div>
                     <div className="text-sm text-muted-foreground font-medium">Items in Cart</div>
                   </Link>
                   
@@ -480,7 +485,7 @@ export default function ProfilePage() {
                     <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
                       <Dumbbell className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-1">0</div>
+                    <div className="text-3xl font-bold text-foreground mb-1">4</div>
                     <div className="text-sm text-muted-foreground font-medium">Workout Plans</div>
                   </Link>
                 </div>
