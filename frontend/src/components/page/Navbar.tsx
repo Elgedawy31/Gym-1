@@ -73,7 +73,7 @@ export default function Navbar() {
           }
           <Button variant="ghost" size="sm" asChild>
             <Link href="/products/general" className="flex items-center gap-2">
-              <Package className="w-4 h-4" /> Products
+              <Package className="w-4 h-4" /> General
             </Link>
           </Button>
 
@@ -174,7 +174,7 @@ export default function Navbar() {
             <Link href="/women" onClick={() => setIsOpen(false)} className="text-lg">Women</Link>
             <Link href="/men" onClick={() => setIsOpen(false)} className="text-lg">Men</Link>
             <Link href="/dashboard" onClick={() => setIsOpen(false)} className="text-lg">Dashboard</Link>
-            <Link href="/products" onClick={() => setIsOpen(false)} className="text-lg">Products</Link>
+            <Link href="/products" onClick={() => setIsOpen(false)} className="text-lg">General</Link>
             <Link href="/subscription" onClick={() => setIsOpen(false)} className="text-lg">Subscription</Link>
             <Link href="/workout-plans" onClick={() => setIsOpen(false)} className="text-lg">Workout Plans</Link>
           </div>

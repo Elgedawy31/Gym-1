@@ -49,7 +49,7 @@ export default function WomenSection() {
           transition={{ duration: 0.6 }}
           className="text-4xl font-bold text-center mb-8"
         >
-          Best Products For Women
+          Top Products For Women
         </motion.h2>
       </div>
       <ProductsSection products={products} reverseAnimation />

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ErrorResponse, WorkoutPlan, WorkoutPlanRequest, WorkoutPlansResponse } from "../types";
+import { WorkoutPlan, WorkoutPlanRequest, WorkoutPlansResponse } from "../types";
 import { createWorkoutPlanService, deleteWorkoutPlanServiceService, getAllWorkoutPlansService, getWorkoutPlanByIdService, getWorkoutPlansByTrainerService, subscribeToWorkoutPlanService, updateWorkoutPlanService } from "../service/workoutPlanService";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
@@ -61,7 +61,7 @@ export const useGetAllWorkoutPlans = (page: number, limit: number) => {
   const { setWorkoutPlans } = useWorkoutPlanStore();
 
   const { data, error, isError, isSuccess, ...query } = useQuery({
-    queryKey: ["workoutPlans", page],
+    queryKey: ["workoutPlans", page, limit],
     queryFn: () => getAllWorkoutPlansService(page, limit),
     staleTime: 1000 * 60,
   });

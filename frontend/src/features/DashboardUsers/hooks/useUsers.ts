@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { getAllUsers } from '../services/userService';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { deleteUser, getAllUsers } from '../services/userService';
 import { UsersResponse } from '../types/userTypes';
 
 export function useGetAllUsers(page: number, role?: string) {
@@ -12,3 +12,14 @@ export function useGetAllUsers(page: number, role?: string) {
 }
 
 
+export function useDeleteUser() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (userId: string) => deleteUser(userId),
+    onSuccess: () => {
+      // Invalidate and refetch users after delete
+      queryClient.invalidateQueries({ queryKey: ['dashboard-users'] });
+    },
+  });
+}

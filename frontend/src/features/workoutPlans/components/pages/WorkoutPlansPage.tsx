@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,7 +13,7 @@ import { ChevronLeft, ChevronRight, Dumbbell } from 'lucide-react';
 
 import { useAuthStore } from '@/features/auth/store/authStore';
 import { useGetAllWorkoutPlans } from '@/features/workoutPlans/hooks/useWorkoutPlan';
-import { WorkoutPlansResponse, WorkoutPlan } from '@/features/workoutPlans/types';
+import { WorkoutPlan } from '@/features/workoutPlans/types';
 import { useSubscribeToWorkoutPlan } from '@/features/workoutPlans/hooks/useWorkoutPlan';
 
 export default function WorkoutPlanPage() {

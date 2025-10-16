@@ -93,28 +93,28 @@ export default function CreateWorkoutPlanPage() {
                 <div key={field.id} className="p-4 border rounded-lg space-y-3">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label>Exercise Name</Label>
+                      <Label className="mb-2">Exercise Name</Label>
                       <Input
                         {...register(`exercises.${index}.name` as const, { required: true })}
                         placeholder="e.g. Bench Press"
                       />
                     </div>
                     <div>
-                      <Label>Sets</Label>
+                      <Label className="mb-2">Sets</Label>
                       <Input
                         type="number"
                         {...register(`exercises.${index}.sets` as const, { valueAsNumber: true })}
                       />
                     </div>
                     <div>
-                      <Label>Reps</Label>
+                      <Label className="mb-2">Reps</Label>
                       <Input
                         type="number"
                         {...register(`exercises.${index}.reps` as const, { valueAsNumber: true })}
                       />
                     </div>
                     <div>
-                      <Label>Rest</Label>
+                      <Label className="mb-2">Rest</Label>
                       <Input
                         {...register(`exercises.${index}.rest` as const)}
                         placeholder="e.g. 60s"

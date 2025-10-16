@@ -68,7 +68,7 @@ export default function LoginPage() {
           onSubmit({ email, password });
         }}>
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-                <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+                <Label htmlFor="email" className="text-sm font-medium mb-1">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -80,7 +80,7 @@ export default function LoginPage() {
               </motion.div>
 
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                <Label htmlFor="password" className="text-sm font-medium mb-1">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -108,7 +108,7 @@ export default function LoginPage() {
 
               <div className="text-center text-sm">
                 Don&apos;t have an account?{' '}
-                <Link href="/register" className="text-primary hover:underline">Register</Link>
+                <Link href="/register" className="text-blue-600 hover:text-blue-500">Register</Link>
               </div>
             </form>
           </CardContent>

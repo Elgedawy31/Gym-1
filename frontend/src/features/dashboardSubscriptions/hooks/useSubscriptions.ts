@@ -35,8 +35,8 @@ export function useUpdateSubscription(): UseMutationResult<
       return await updateSubscriptionService(subId, { planType, status });
     },
     onSuccess: () => {
-      window.location.reload();
       toast.success("Subscription updated successfully");
+      window.location.reload();
     },
     onError: (error: ApiError) => {
       console.error("Subscription update failed:", error.message);
@@ -74,8 +74,8 @@ export function useUpdateTrainerSubscription(): UseMutationResult<
       return await updateTrainerSubscriptionService(subId, { planType, status });
     },
     onSuccess: () => {
+      toast.success?.("Trainer subscription updated successfully");
         window.location.reload();
-        toast.success?.("Trainer subscription updated successfully");
       },
     onError: (error: ApiError) => {
       console.error("Subscription update failed:", error.message);

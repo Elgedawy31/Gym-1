@@ -1,16 +1,51 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Trainer } from '../../types';
 import Link from 'next/link';
+import { getTopTrainers } from '../../hooks/useHome';
+import toast from 'react-hot-toast';
 
-export default function TrainersSection({trainers}: {trainers: Trainer[]}) {
+export default function TrainersSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
+
+  const [trainers, setTrainers] = useState<Trainer[]>([]);
+  // const [ isPending, setIsPending] = useState(false)
+
+  useEffect(() => {
+    const fetchTopTrainers = async () => {
+  
+      try {
+        const res = await getTopTrainers();
+        if (res) {
+          setTrainers(res);
+        } else {
+          toast.error("Something went wrong during get Trainer");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("Something went wrong. Please try again.");
+      }
+    };
+    
+    fetchTopTrainers();
+  }, []);
+
+  // if(isPending){
+  //   return(
+  //     <div className="flex justify-center items-center min-h-[500px] bg-card">
+  //       <div className="flex flex-col items-center space-y-4">
+  //         <div className="animate-spin w-16 h-16 border-4 border-t-4 border-primary border-t-primary-foreground rounded-full"></div>
+  //         <p className="text-lg font-semibold text-card-foreground animate-pulse">Loading Top Trainer&apos;s ...</p>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <section ref={ref} className="py-20 px-4">
@@ -21,7 +56,7 @@ export default function TrainersSection({trainers}: {trainers: Trainer[]}) {
           transition={{ duration: 0.6 }}
           className="text-4xl font-bold text-center mb-16"
         >
-          Best Trainers
+          Top Trainers
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {trainers.map((trainer, idx) => (

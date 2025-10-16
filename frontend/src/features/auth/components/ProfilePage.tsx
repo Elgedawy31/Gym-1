@@ -481,7 +481,7 @@ export default function ProfilePage() {
                     <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
                       <ShoppingBag className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-1">3</div>
+                    <div className="text-3xl font-bold text-foreground mb-1">2</div>
                     <div className="text-sm text-muted-foreground font-medium">Orders Placed</div>
                   </Link>
                   
@@ -489,7 +489,7 @@ export default function ProfilePage() {
                     <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
                       <ShoppingBag className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-1">{cart?.items.length}</div>
+                    <div className="text-3xl font-bold text-foreground mb-1">{cart?.items.length === 0 ? 0 : cart?.items.length}</div>
                     <div className="text-sm text-muted-foreground font-medium">Items in Cart</div>
                   </Link>
                   
@@ -497,7 +497,7 @@ export default function ProfilePage() {
                     <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
                       <Dumbbell className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-1">4</div>
+                    <div className="text-3xl font-bold text-foreground mb-1">2</div>
                     <div className="text-sm text-muted-foreground font-medium">Workout Plans</div>
                   </Link>
                 </div>

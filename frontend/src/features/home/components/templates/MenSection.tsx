@@ -49,7 +49,7 @@ export default function MenSection() {
             transition={{ duration: 0.6 }}
             className="text-4xl font-bold text-center mb-12"
           >
-          Best Products For Men
+          Top Products For Men
         </motion.h2>
       </div>
     <ProductsSection products={products} />

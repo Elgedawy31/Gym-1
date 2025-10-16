@@ -44,7 +44,7 @@ export default function WorkoutPlanDetails() {
   }
 
   return (
-    <div className="max-h-[91vh] overflow-hidden bg-background">
+    <div className="max-h-[91vh] bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Card className="shadow-xl">
           <CardHeader>
@@ -64,7 +64,7 @@ export default function WorkoutPlanDetails() {
                 <DollarSign className="w-5 h-5 text-primary" />
                 <div>
                   <p className="text-sm text-muted-foreground">Price</p>
-                  <p className="font-medium text-foreground">${workoutPlan.price}</p>
+                  <p className="font-medium text-foreground">$100</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">

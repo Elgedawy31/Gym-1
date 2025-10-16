@@ -123,28 +123,28 @@ export default function RegisterPage() {
 
               {/* Name */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                <Label htmlFor="name" className="text-sm font-medium">Name</Label>
+                <Label htmlFor="name" className="text-sm font-medium mb-1">Name</Label>
                 <Input id="name" placeholder="Enter your name" {...register('name')} />
                 {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
               </motion.div>
 
               {/* Email */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+                <Label htmlFor="email" className="text-sm font-medium mb-1">Email</Label>
                 <Input id="email" type="email" placeholder="Enter your email" {...register('email')} />
                 {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
               </motion.div>
 
               {/* Password */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                <Label htmlFor="password" className="text-sm font-medium mb-1">Password</Label>
                 <Input id="password" type="password" placeholder="Enter your password" {...register('password')} />
                 {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
               </motion.div>
 
               {/* Phone Number */}
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-                <Label htmlFor="phone" className="text-sm font-medium">Phone Number</Label>
+                <Label htmlFor="phone" className="text-sm font-medium mb-1">Phone Number</Label>
                 <Input id="phone" type="tel" placeholder="Enter your phone number" {...register('phoneNumber')} />
                 {errors.phoneNumber && <p className="text-sm text-red-500">{errors.phoneNumber.message}</p>}
               </motion.div>
@@ -189,7 +189,7 @@ export default function RegisterPage() {
               {/* Submit Button */}
               <div className="block text-center w-full">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
-                  <Link href="/login" className=" ">Do you have an account? <span className='text-blue-600'>Signin</span></Link>
+                  <Link href="/login" className=" ">Do you have an account? <span className='text-blue-600 hover:text-blue-500'>Signin</span></Link>
                 </motion.div>
               </div>
             </form>

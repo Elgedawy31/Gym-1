@@ -38,7 +38,7 @@ export const deleteWorkoutPlanServiceService = async (workoutPlanId: string) : P
 
 export const getAllWorkoutPlansService = async (page: number, limit: number) : Promise<WorkoutPlansResponse> => {
   try {
-    const response: AxiosResponse<WorkoutPlansResponse> = await clientAxios.get(API_CONFIG.ENDPOINTS.WORKOUT_PLANS.GET_ALL_WORKOUT_PLANS(page));
+    const response: AxiosResponse<WorkoutPlansResponse> = await clientAxios.get(API_CONFIG.ENDPOINTS.WORKOUT_PLANS.GET_ALL_WORKOUT_PLANS(page, limit));
     return response.data;
   } catch (error) {
     console.error("Error getting all workout plans:", error);
