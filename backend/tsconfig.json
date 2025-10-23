@@ -1,20 +1,17 @@
 {
   "compilerOptions": {
-    // Environment setup
-    "lib": ["ES2020"], 
-    "target": "ES2020", 
-    "module": "Node16", 
-    "moduleResolution": "Node16",
+    "lib": ["ES2020"],
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowJs": true, 
-    "types": ["node"], // Explicitly include Node.js types
+    "allowJs": true,
+    "types": ["node"],
 
-    // Output and structure
     "outDir": "./dist",
-    "rootDir": "./src", 
-    "sourceMap": true, 
+    "rootDir": "./src",
+    "sourceMap": true,
 
-    // Best practices
     "strict": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
@@ -24,12 +21,9 @@
     "noUnusedParameters": true,
     "resolveJsonModule": true,
     "strictNullChecks": true,
-
-
-    // Additional checks
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true 
+    "noImplicitReturns": true
   },
-  "include": ["src/**/*"], 
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

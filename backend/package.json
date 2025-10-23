@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "module": "src/app.ts",
-  "type": "module",
   "private": true,
   "devDependencies": {
     "@types/bun": "latest",
